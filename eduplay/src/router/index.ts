@@ -1,29 +1,44 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ProjectsLayout from '@/modules/projects/layouts/ProjectLayout.vue';
+import ElegirGrupos_2 from '../components/ElegirGrupos_v2.vue';
+
+// Corrige el nombre del componente
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: ElegirGrupos_2,
+  },
+  {
+    path: '/esperando-equipo',
+    name: 'esperandoEquipo',
+    component: () => import('../components/EsperandoEquipo.vue'),
+  },
+  {
+    path: '/video-historia',
+    name: 'videoHistoria',
+    component: () => import('../components/VideoHistoria.vue'),
+  },
+  {
+    path: '/vista-ingeniero',
+    name: 'vistaIngeniero',
+    component: () => import('../components/VistaIngeniero.vue'),
+  },
+  {
+    path: '/vista-construtor',
+    name: 'vistaConstrutor',
+    component: () => import('../components/VistaConstrutor.vue'),
+  },
+  {
+    path: '/vista-final',
+    name: 'vistaFinal',
+    component: () => import('../components/VistaFinal.vue'),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      redirect: { name: 'projects' },
-      component: ProjectsLayout,
-      children: [
-        {
-          path: 'projects',
-          name: 'projects',
-          component: () => import('@/modules/projects/views/ProjectsView.vue'),
-        },
-        {
-          path: 'project/:id',
-          props: true,
-          name: 'project',
-          component: () => import('@/modules/projects/views/ProjectView.vue'),
-        },
-      ],
-    },
-  ],
+  routes,
 });
 
 export default router;
