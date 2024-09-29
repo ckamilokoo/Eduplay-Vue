@@ -20,5 +20,5 @@ jobs:
         region: 'us-south'
         project: 'ce-project-APPEDUPLAY'
         component: 'app'
-        name: 'Eduplay-2'
+        name: 'Eduplay.V2'
         build-source: './eduplay'
