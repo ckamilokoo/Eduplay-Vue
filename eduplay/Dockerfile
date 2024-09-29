@@ -1,28 +1,30 @@
-name: Deploy App to Code Engine
+# Etapa de construcción
+FROM node:18-alpine AS build-stage
 
-on:
-  push:
-    branches:
-      - main
+# Establecer el directorio de trabajo
+WORKDIR /app
 
-jobs:
-  app:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+# Copiar los archivos de configuración de dependencias
+COPY package.json package-lock.json ./
 
-      - name: Build Docker Image
-        run: |
-          docker build -t my-docker-image ./eduplay  # Ajusta la ruta según sea necesario
+# Instalar las dependencias
 
-      - name: Deploy Application to Code Engine
-        uses: ibm/code-engine-github-action@v1
-        with:
-          api-key: '1D4vtuwENvuxvHRvYlOK22towUf8WOT0YLCjKQ92ThnE'  # Usa un secreto para la API Key
-          resource-group: 'EDUPLAY'
-          region: 'us-south'
-          project: 'ce-project-APPEDUPLAY'
-          component: 'app'
-          name: 'eduplayv2'
-          build-source: './eduplay'
+RUN npm ci
+
+# Copiar el resto de la aplicación
+COPY . .
+
+# Construir la aplicación para producción
+RUN npm run build
+
+# Etapa de producción
+FROM nginx:stable-alpine AS production-stage
+
+# Copiar los archivos construidos desde la etapa anterior
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Exponer el puerto en el que NGINX escuchará
+EXPOSE 8080
+
+# Comando para ejecutar NGINX en primer plano
+CMD ["nginx", "-g", "daemon off;"]
