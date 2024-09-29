@@ -1,45 +1,34 @@
-# proyecto-app
+# Eduplay 
 
-This template should help get you started developing with Vue 3 in Vite.
+Este proyecto es una aplicación interactiva y educativa diseñada para niños, que permite controlar dispositivos LEGO WeDo 2.0 a través de una conexión Bluetooth. La aplicación utiliza tecnología web moderna para crear una experiencia divertida y educativa, donde los niños pueden interactuar con motores, luces y sensores de movimiento, fomentando el aprendizaje de la programación y la tecnología.
 
-## Recommended IDE Setup
+## Funcionalidades Principales
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Control del Motor**: Los niños pueden encender, apagar y controlar la velocidad de un motor miniatura utilizando la interfaz de la aplicación.
+  
+- **Cambio de Color de Luces**: A través de la conexión Bluetooth, la aplicación permite cambiar los colores de las luces del LEGO WeDo, ofreciendo una experiencia visual interactiva.
 
-## Type Support for `.vue` Imports in TS
+- **Sensores de Movimiento**: La aplicación puede leer los datos de los sensores de movimiento y reaccionar a ellos, lo que permite desarrollar proyectos interactivos y dinámicos.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Tecnologías Utilizadas
 
-## Customize configuration
+- **Vue.js 3**: Framework de JavaScript utilizado para construir la interfaz interactiva y reactiva de la aplicación.
+  
+- **API Web Bluetooth**: Tecnología que permite la conexión e interacción con dispositivos LEGO WeDo a través de Bluetooth.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- **LEGO WeDo 2.0**: Hardware educativo que incluye motores, luces y sensores, los cuales son controlados desde la aplicación.
 
-## Project Setup
+## Cómo Funciona
 
-```sh
-npm install
-```
+La aplicación se conecta a un Smarthub LEGO WeDo 2.0 usando la API Web Bluetooth, permitiendo a los usuarios realizar diversas acciones como mover un motor o cambiar el color de luces mediante una interfaz gráfica fácil de usar. Los sensores de movimiento también pueden ser controlados, permitiendo crear actividades basadas en eventos.
 
-### Compile and Hot-Reload for Development
+## Requisitos
 
-```sh
-npm run dev
-```
+- Un dispositivo LEGO WeDo 2.0 con Smarthub y sensores.
+- Navegador con soporte para la [API Web Bluetooth](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API) (Chrome o Edge).
 
-### Type-Check, Compile and Minify for Production
+## Instalación
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/nombre-del-proyecto.git
