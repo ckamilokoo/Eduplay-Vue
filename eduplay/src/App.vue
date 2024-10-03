@@ -3,65 +3,184 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="flex h-screen">
+  <div id="app-container" class="flex h-screen">
     <!-- Sidebar -->
-    <aside
-      class="w-52 bg-[url('@/assets/fondo/fondo_eduplay.png')] border-r-2 border-orange-500 p-4 flex flex-col items-center"
-    >
+    <aside id="sidebar" class="sidebar">
       <div>
         <RouterLink to="/" class="flex flex-col items-center">
-          <img alt="Vue logo" class="logo" src="@/assets/EDUPLAY.png" width="200" height="200" />
+          <img alt="Vue logo" id="logo" src="@/assets/EDUPLAY.png" width="200" height="200" />
         </RouterLink>
       </div>
-      <h2 class="font-extrabold text-2xl text-pink-500 mb-6 text-center drop-shadow-lg">
-        Grupo 1 🌟
-      </h2>
-      <ul class="flex flex-col items-center space-y-3">
-        <li
-          class="mb-2 text-lg text-blue-600 font-semibold hover:text-yellow-400 transition-all transform hover:scale-110"
-        >
-          👦 Camilo Campos
-        </li>
-        <li
-          class="mb-2 text-lg text-blue-600 font-semibold hover:text-yellow-400 transition-all transform hover:scale-110"
-        >
-          👦 Camilo Campos
-        </li>
-        <li
-          class="mb-2 text-lg text-blue-600 font-semibold hover:text-yellow-400 transition-all transform hover:scale-110"
-        >
-          👦 Camilo Campos
-        </li>
-        <li
-          class="mb-2 text-lg text-blue-600 font-semibold hover:text-yellow-400 transition-all transform hover:scale-110"
-        >
-          👦 Camilo Campos
-        </li>
+      <h2 id="group-title" class="group-title">Grupo 1 🌟</h2>
+      <ul id="members-list" class="members-list">
+        <li class="member-item">👦 Camilo Campos</li>
+        <li class="member-item">👦 Camilo Campos</li>
+        <li class="member-item">👦 Camilo Campos</li>
+        <li class="member-item">👦 Camilo Campos</li>
       </ul>
 
-      <button
-        class="bg-orange-500 text-white font-bold py-2 px-4 rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300 mt-4"
-      >
-        Guardar
-      </button>
+      <button id="save-button" class="save-button">Guardar</button>
     </aside>
 
-    <div class="flex flex-col flex-1 bg-[url('@/assets/fondo/fondo_eduplay.png')]">
+    <div id="main-content" class="flex flex-col flex-1 bg-main">
       <!-- Header -->
-      <header
-        class="flex flex-col items-center h-20 px-4 border-b-2 border-orange-500 sm:h-24 md:px-6 lg:px-8"
-      >
-        <h1 class="text-center text-2xl font-extrabold text-green-500 shadow-lg">Colegio XXXX</h1>
-        <hr class="my-1" />
-        <h1 class="text-center text-2xl font-extrabold text-green-500 shadow-lg">2do. grado</h1>
+      <header id="header" class="header">
+        <h1 class="header-title">Colegio XXXX</h1>
+        <hr class="header-divider" />
+        <h1 class="header-title">2do. grado</h1>
       </header>
 
       <!-- Main Content -->
-      <main class="flex-1 flex items-center justify-center py-6">
+      <main id="router-view" class="main-content">
         <RouterView />
       </main>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Estilos generales */
+#app-container {
+  display: flex;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+#sidebar {
+  width: 13rem; /* Ancho de la barra lateral */
+  background-image: url('@/assets/fondo/fondo_eduplay.png');
+  border-right: 2px solid orange;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo {
+  margin-bottom: 1rem; /* Espacio debajo del logo */
+}
+
+.group-title {
+  font-weight: 800; /* Fuente extra negrita */
+  font-size: 1.5rem; /* Tamaño de fuente */
+  color: #d2006b; /* Color rosa */
+  margin-bottom: 0.5rem; /* Margen inferior */
+  text-align: center; /* Centrar texto */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+}
+
+#members-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none; /* Sin viñetas */
+  padding: 0; /* Sin padding */
+}
+
+.member-item {
+  margin-bottom: 0.5rem; /* Espacio entre los elementos de la lista */
+  font-size: 1.125rem; /* Tamaño de fuente */
+  color: #0000ff; /* Color azul */
+  font-weight: 600; /* Fuente semi-negrita */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+.member-item:hover {
+  color: #ffc107; /* Color amarillo en hover */
+  transform: scale(1.1); /* Aumentar tamaño en hover */
+}
+
+.save-button {
+  background-color: #ff5722; /* Color de fondo naranja */
+  color: white; /* Color del texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  border-radius: 9999px; /* Bordes redondeados */
+  margin-top: 1rem; /* Margen superior */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambiar cursor a mano */
+}
+
+.save-button:hover {
+  background-color: #e64a19; /* Color de fondo más oscuro en hover */
+}
+
+#main-content {
+  flex: 1; /* Toma el espacio restante */
+  background-image: url('@/assets/fondo/fondo_eduplay.png'); /* Fondo principal */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 5rem; /* Altura del encabezado */
+  padding: 0 1rem; /* Espaciado interno */
+  border-bottom: 2px solid orange; /* Borde inferior */
+}
+
+.header-title {
+  text-align: center; /* Centrar texto */
+  font-size: 1.5rem; /* Tamaño de fuente */
+  font-weight: 800; /* Fuente extra negrita */
+  color: #4caf50; /* Color verde */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+}
+
+.header-divider {
+  margin: 0.5rem 0; /* Margen superior e inferior */
+}
+
+.main-content {
+  flex: 1; /* Ocupa el espacio restante */
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  padding: 0rem; /* Espaciado interno */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  #sidebar > div {
+    margin-top: 0; /* Asegurarte de que no haya margen superior en el contenedor del logo */
+  }
+  #sidebar {
+    width: 10rem; /* Reducir ancho de la barra lateral */
+  }
+
+  .group-title {
+    font-size: 1.25rem; /* Reducir tamaño de fuente */
+  }
+
+  .member-item {
+    font-size: 0.9rem; /* Reducir tamaño de fuente */
+  }
+
+  .header-title {
+    font-size: 1.25rem; /* Reducir tamaño de fuente */
+  }
+
+  .save-button {
+    padding: 0.2rem 0.7rem;
+    border-radius: 99px;
+    margin-top: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  #sidebar {
+    width: 8rem; /* Ancho más pequeño en pantallas pequeñas */
+  }
+
+  .group-title {
+    font-size: 1rem; /* Tamaño más pequeño */
+  }
+
+  .member-item {
+    font-size: 0.875rem; /* Tamaño más pequeño */
+  }
+
+  .header-title {
+    font-size: 1rem; /* Tamaño más pequeño */
+  }
+}
+</style>
