@@ -1,0 +1,201 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben en una fila */
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container,
+.list-container {
+  flex: 1;
+  box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+  margin: 10px; /* Espacio alrededor de cada contenedor */
+  overflow: hidden; /* Evita el desbordamiento visible de contenido */
+}
+
+.form-container {
+  margin-right: 20px; /* Espacio entre formulario y lista en pantallas grandes */
+}
+
+.list-container {
+  border: 2px solid #007bff; /* Contorno de la lista */
+  border-radius: 8px; /* Esquinas redondeadas del contorno */
+  background: #fff; /* Fondo de la lista */
+  padding: 20px; /* Espaciado interno de la lista */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil para la lista */
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #007bff; /* Contorno del formulario */
+  border-radius: 8px; /* Esquinas redondeadas del contorno */
+  padding: 20px; /* Espaciado interno del formulario */
+  background: #fff; /* Fondo del formulario */
+}
+
+.form-container label {
+  margin-bottom: 5px;
+}
+
+.form-container input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%; /* Asegura que los campos de entrada ocupen todo el ancho disponible */
+}
+
+.form-container button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px; /* Esquinas redondeadas del botón */
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.list-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Elimina el margen por defecto */
+}
+
+.list-container li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word; /* Rompe las palabras largas para evitar el desbordamiento */
+}
+
+.list-container li:last-child {
+  border-bottom: none;
+}
+
+/* Estilo para los campos de entrada del formulario */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Estilo para los campos de entrada cuando están enfocados */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 992px) {
+  .form-container {
+    margin-right: 0; /* Elimina el margen derecho en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .form-container,
+  .list-container {
+    margin: 0;
+    width: 100%;
+  }
+
+  .form-container {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container,
+  .list-container {
+    padding: 10px; /* Menor padding en pantallas muy pequeñas */
+  }
+
+  .form-container input,
+  .form-container button {
+    font-size: 14px; /* Tamaño de fuente más pequeño para campos en pantallas pequeñas */
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+
+  .flashes li {
+    font-size: 14px; /* Tamaño de fuente más pequeño para mensajes */
+  }
+}
+
+.grupos-container {
+  margin: 20px 0; /* Margen superior e inferior */
+  padding: 20px;
+  background: #fff; /* Fondo blanco */
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.crear-grupos {
+  margin-bottom: 20px; /* Espacio entre el botón de crear grupos y la tabla */
+}
+
+table {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  border-collapse: collapse; /* Elimina espacios entre celdas */
+  margin-top: 10px; /* Espacio entre el título y la tabla */
+}
+
+th,
+td {
+  border: 1px solid #ddd; /* Borde de las celdas */
+  padding: 10px; /* Espaciado interno de las celdas */
+  text-align: left; /* Alineación del texto a la izquierda */
+}
+
+th {
+  background-color: #007bff; /* Fondo azul para encabezados */
+  color: white; /* Texto blanco */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Color de fondo alternativo para filas */
+}
+
+tr:hover {
+  background-color: #e0e0e0; /* Color de fondo al pasar el mouse */
+}

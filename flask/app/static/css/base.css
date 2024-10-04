@@ -1,0 +1,140 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #fcec6a;
+  color: #3653ab;
+  font-family: "Comic Sans MS", "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  margin-bottom: 50px;
+}
+
+/* Estilos personalizados para el navbar */
+.custom-navbar {
+  background-color: #b6d7f2;
+  /* Cambia este color al que desees */
+  padding: 10px 0;
+  /* Ajusta el padding segÃºn sea necesario */
+}
+
+.custom-navbar .navbar-brand {
+  color: black;
+  /* Asegura que el color del texto no cambie */
+}
+
+.custom-navbar .navbar-brand img {
+  filter: none;
+  /* Asegura que el filtro no altere la imagen */
+}
+
+.custom-navbar .navbar-nav .nav-link {
+  color: inherit;
+  /* Asegura que el color del texto de los enlaces no cambie */
+}
+
+/*------------------Sección Index-----------------------*/
+.content-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px auto;
+  width: 80%;
+}
+
+.content-item {
+  flex: 1;
+  margin: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border: 2px solid #09b43f;
+  border-radius: 10px;
+}
+
+/* Botones */
+.btn-custom {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #fcec05;
+  /* Color de fondo llamativo para niños */
+  border: none;
+  border-radius: 10px;
+  color: #3653ab;
+  /* Texto en color oscuro para contraste */
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-custom:hover {
+  background-color: #09b43f;
+  /* Cambio de color en hover */
+  transform: scale(1.05);
+  /* Efecto de agrandamiento en hover */
+}
+
+.btn-custom a {
+  color: #3653ab;
+  text-decoration: none;
+}
+
+.btn-custom a:hover {
+  color: white;
+}
+
+/*------------------Fin Sección Index-----------------------*/
+
+.container-video {
+  max-width: 800px;
+  margin: 0 auto 50px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #fcec05, #09b43f);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+video {
+  width: 100%;
+  border-radius: 15px;
+  border: 5px solid #3653ab;
+}
+
+.video-description {
+  margin-top: 15px;
+  background: linear-gradient(135deg, #fcec05, #09b43f);
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+  border: 2px solid #09b43f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  background-color: #b6d7f2;
+  /* Color de fondo verde */
+  color: black;
+  /* Color del texto blanco */
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+  /* Asegura que el footer se mantenga en la parte inferior */
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}EDUPLAY{% endblock %}</title>
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base.css') }}"
+    />
+    <!-- Enlace al CSS del carrusel -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/carousel.css') }}"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <!-- NavBar -->
+    <nav class="navbar custom-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('main.registro') }}">
+          <img
+            src="{{ url_for('static', filename='logo/eduplay.png') }}"
+            alt=""
+            width="70px"
+            height="70px"
+            class="d-inline-block align-text-top"
+          />
+          EDUPLAY
+        </a>
+      </div>
+    </nav>
+
+    <div class="container flex-grow-1 mt-4">
+      {% block contenido %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="">© 2024 EDU PLAY</span>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
