@@ -25,8 +25,8 @@
         src="../assets/bosque/imagen_2.jpg"
         alt="Imagen 1"
         class="w-full sm:w-1/2 md:w-2/4 lg:w-2/6"
-        height="700px"
-        width="700px"
+        height="300px"
+        width="300px"
       />
       <h3 class="w-auto sm:w-1/2 md:w-2/4 lg:w-3/6 text-xl font-bold mb-2 text-right">
         {{ claseActual.contenido }}
@@ -53,13 +53,11 @@
       class="flex flex-row items-start justify-between h-full"
     >
       <!-- Contenedor izquierdo con imagen y texto -->
-      <div class="flex flex-col items-start justify-between h-full sm:w-1/2 md:w-2/4 lg:w-2/6">
+      <div class="flex flex-col items-start justify-between h-full sm:w-1/2 md:w-3/4 lg:w-2/6">
         <img
           src="../assets/bosque/imagen_4.jpg"
           alt="Imagen 1"
-          class="mb-4 w-full"
-          height="650px"
-          width="650px"
+          class="mb-4 sm:w-1/2 md:w-3/4 lg:w-2/6 object-cover"
         />
 
         <h3 class="w-full text-xl font-bold mb-2 text-center">
@@ -68,7 +66,7 @@
       </div>
 
       <!-- Contenedor derecho para los botones -->
-      <div class="flex flex-col items-center justify-center pr-6">
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6">
         <div class="flex flex-col space-y-4">
           <button
             :class="[
@@ -138,16 +136,10 @@
       v-if="claseActual && claseActual.id === 6"
       class="flex flex-row-reverse items-center justify-between w-full"
     >
-      <h3 class="w-3/6 text-xl font-bold mb-2 text-center">
+      <h3 class="w-3/6 text-xl font-bold mb-2 text-left">
         {{ claseActual.contenido }}
       </h3>
-      <img
-        src="../assets/bosque/imagen_6.jfif"
-        alt="Imagen 1"
-        class="w-3/6 mb-4"
-        height="400px"
-        width="400px"
-      />
+      <img src="../assets/bosque/imagen_6.jfif" alt="Imagen 6" class="w-3/6 mb-4" />
     </div>
     <div
       v-if="claseActual && claseActual.id === 7"
@@ -168,39 +160,61 @@
       v-if="claseActual && claseActual.id === 8"
       class="flex flex-row items-center justify-between"
     >
-      <img
-        src="../assets/bosque/imagen_4.jpg"
-        alt="Imagen 1"
-        class="mb-4"
-        height="650px"
-        width="650px"
-      />
+      <!-- Contenedor izquierdo con imagen y texto -->
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-2/6">
+        <img
+          src="../assets/bosque/idea2.jfif"
+          alt="Imagen 1"
+          class="mr-4"
+          height="250px"
+          width="250px"
+        />
 
-      <!-- Contenedor para el texto y los botones -->
-      <div class="flex flex-col items-center pr-6">
-        <!-- Texto -->
-        <h3 class="text-xl font-bold mb-6 text-center">
+        <h3 class="w-full text-xl font-bold mb-2 text-center">
           {{ claseActual.contenido }}
         </h3>
+      </div>
 
-        <!-- Botones -->
-        <div class="flex flex-col items-center space-y-4">
+      <!-- Contenedor derecho para los botones -->
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6">
+        <div class="flex flex-col space-y-4">
           <button
-            class="bg-yellow-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-500 transition duration-300"
+            :class="[
+              'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'A'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-red-500',
+            ]"
             @click="seleccionarOpcion('A')"
           >
             {{ claseActual.OpcionA }}
           </button>
 
           <button
-            class="bg-green-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-green-500 transition duration-300"
+            :class="[
+              'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'B'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-red-500',
+            ]"
             @click="seleccionarOpcion('B')"
           >
             {{ claseActual.OpcionB }}
           </button>
 
           <button
-            class="bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-500 transition duration-300"
+            :class="[
+              'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'C'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-green-500',
+            ]"
             @click="seleccionarOpcion('C')"
           >
             {{ claseActual.OpcionC }}
@@ -238,145 +252,204 @@
         {{ claseActual.contenido }}
       </h3>
     </div>
-    <div v-if="claseActual && claseActual.id === 11" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
+    <div
+      v-if="claseActual && claseActual.id === 11"
+      class="flex flex-row items-center justify-between"
+    >
+      <!-- Imagen a la izquierda -->
       <img
         src="../assets/bosque/imagen_11.jfif"
         alt="Imagen 1"
-        class="mb-4"
+        class="w-1/2 h-auto"
         height="400px"
         width="400px"
       />
-    </div>
-    <div v-if="claseActual && claseActual.id === 12" class="flex flex-col items-center">
-      <img
-        src="../assets/bosque/imagen_8.jpg"
-        alt="Imagen 1"
-        class="mb-4"
-        height="400px"
-        width="400px"
-      />
-      <h3 class="text-xl font-bold mb-2 text-center pr-6">
+
+      <!-- Texto a la derecha -->
+      <h3 class="text-xl font-bold w-1/2 text-left pl-4">
         {{ claseActual.contenido }}
       </h3>
-      <div class="flex flex-col items-center space-y-4">
-        <button
-          :class="[
-            'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
-            opcionSeleccionada === 'A'
-              ? respuestaCorrecta
-                ? 'bg-green-500'
-                : 'bg-red-500'
-              : 'hover:bg-red-500',
-          ]"
-          @click="seleccionarOpcion('A')"
-        >
-          {{ claseActual.OpcionA }}
-        </button>
+    </div>
 
-        <button
-          :class="[
-            'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
-            opcionSeleccionada === 'B'
-              ? respuestaCorrecta
-                ? 'bg-green-500'
-                : 'bg-red-500'
-              : 'hover:bg-green-500',
-          ]"
-          @click="seleccionarOpcion('B')"
-        >
-          {{ claseActual.OpcionB }}
-        </button>
+    <div
+      v-if="claseActual && claseActual.id === 12"
+      class="flex flex-row items-center justify-between"
+    >
+      <!-- Contenedor izquierdo con imagen y texto -->
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-2/6">
+        <img
+          src="../assets/bosque/idea2.jfif"
+          alt="Imagen 1"
+          class="mr-2"
+          height="250px"
+          width="250px"
+        />
 
-        <button
-          :class="[
-            'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
-            opcionSeleccionada === 'C'
-              ? respuestaCorrecta
-                ? 'bg-green-500'
-                : 'bg-red-500'
-              : 'hover:bg-red-500',
-          ]"
-          @click="seleccionarOpcion('C')"
-        >
-          {{ claseActual.OpcionC }}
-        </button>
+        <h3 class="w-full text-l font-bold mb-2 text-center sm:w-1/2 md:w-2/4 lg:w-2/6">
+          {{ claseActual.contenido }}
+        </h3>
+      </div>
+
+      <!-- Contenedor derecho para los botones -->
+      <div class="flex flex-col items-center justify-center mt-4 pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6">
+        <div class="flex flex-col space-y-4">
+          <button
+            :class="[
+              'bg-blue-400 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'A'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-red-500',
+            ]"
+            @click="seleccionarOpcion('A')"
+          >
+            {{ claseActual.OpcionA }}
+          </button>
+
+          <button
+            :class="[
+              'bg-blue-400 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'B'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-green-500',
+            ]"
+            @click="seleccionarOpcion('B')"
+          >
+            {{ claseActual.OpcionB }}
+          </button>
+
+          <button
+            :class="[
+              'bg-blue-400 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'C'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-red-500',
+            ]"
+            @click="seleccionarOpcion('C')"
+          >
+            {{ claseActual.OpcionC }}
+          </button>
+        </div>
       </div>
     </div>
-    <div v-if="claseActual && claseActual.id === 13" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
+    <div
+      v-if="claseActual && claseActual.id === 13"
+      class="flex flex-row items-center justify-between"
+    >
+      <h3 class="text-xl font-bold mb-2 text-center w-3/6">
         {{ claseActual.contenido }}
       </h3>
       <img
         src="../assets/bosque/imagen_13.jfif"
         alt="Imagen 1"
-        class="mb-4"
-        height="400px"
-        width="400px"
+        class="mb-4 w-3/6"
+        height="200px"
+        width="200px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 14" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
+    <div
+      v-if="claseActual && claseActual.id === 14"
+      class="flex flex-row items-center justify-between"
+    >
+      <h3 class="text-l font-bold mb-2 text-center w-3/6">
         {{ claseActual.contenido }}
       </h3>
       <img
         src="../assets/bosque/imagen_14.jfif"
         alt="Imagen 1"
-        class="mb-4"
+        class="mb-4 w-3/6"
         height="400px"
         width="325px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 15" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
+    <div
+      v-if="claseActual && claseActual.id === 15"
+      class="flex flex-row items-center justify-between"
+    >
+      <h3 class="text-l font-bold mb-2 text-center w-3/6">
         {{ claseActual.contenido }}
       </h3>
       <img
         src="../assets/bosque/imagen_15.jfif"
         alt="Imagen 1"
-        class="mb-4"
+        class="mb-4 w-3/6"
         height="400px"
         width="350px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 16" class="flex flex-col items-center">
-      <img
-        src="../assets/bosque/imagen_8.jpg"
-        alt="Imagen 1"
-        class="mb-4"
-        height="400px"
-        width="400px"
-      />
-      <h3 class="text-xl font-bold mb-2 text-center pr-6">
-        {{ claseActual.contenido }}
-      </h3>
-      <div class="flex flex-col items-center space-y-4">
-        <button
-          class="bg-yellow-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-500 transition duration-300"
-          @click="seleccionarOpcion('A')"
-        >
-          {{ claseActual.OpcionA }}
-        </button>
+    <div
+      v-if="claseActual && claseActual.id === 16"
+      class="flex flex-row items-center justify-between"
+    >
+      <!-- Contenedor izquierdo con imagen y texto -->
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-2/4 lg:w-2/6">
+        <img
+          src="../assets/bosque/imagen_16.jfif"
+          alt="Imagen 1"
+          class="mr-4"
+          height="250px"
+          width="250px"
+        />
 
-        <button
-          class="bg-green-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-green-500 transition duration-300"
-          @click="seleccionarOpcion('B')"
-        >
-          {{ claseActual.OpcionB }}
-        </button>
+        <h3 class="w-full text-l font-bold mb-2 text-center">
+          {{ claseActual.contenido }}
+        </h3>
+      </div>
 
-        <button
-          class="bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-500 transition duration-300"
-          @click="seleccionarOpcion('C')"
-        >
-          {{ claseActual.OpcionC }}
-        </button>
+      <!-- Contenedor derecho para los botones -->
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-2/4 lg:w-2/6">
+        <div class="flex flex-col space-y-4">
+          <button
+            :class="[
+              'bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'A'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-green-500',
+            ]"
+            @click="seleccionarOpcion('A')"
+          >
+            {{ claseActual.OpcionA }}
+          </button>
+
+          <button
+            :class="[
+              'bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'B'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-red-500',
+            ]"
+            @click="seleccionarOpcion('B')"
+          >
+            {{ claseActual.OpcionB }}
+          </button>
+
+          <button
+            :class="[
+              'bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-lg transition duration-300',
+              opcionSeleccionada === 'C'
+                ? respuestaCorrecta
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+                : 'hover:bg-red-500',
+            ]"
+            @click="seleccionarOpcion('C')"
+          >
+            {{ claseActual.OpcionC }}
+          </button>
+        </div>
       </div>
     </div>
     <div v-if="claseActual && claseActual.id === 17" class="flex flex-col items-center">
-      <RouterLink to="/" class="flex flex-col items-center">
+      <RouterLink to="/vista-construtor" class="flex flex-col items-center">
         <img
           src="../assets/iconos_inicio/icosaedro.png"
           alt="Esfera"
@@ -384,16 +457,17 @@
           height="200px"
           width="200px"
         />
-        <h3 class="text-xl font-bold mb-2 text-center">Volver al Menu Principal</h3>
+        <h3 class="text-xl font-bold mb-2 text-center">Siguiente Nivel</h3>
       </RouterLink>
     </div>
 
     <!-- Botones debajo del texto e imagen -->
-    <div class="flex justify-between items-center space-x-4 mt-4 w-1/2">
+    <div id="buttons-container" class="buttons-row">
       <button
         @click="decrementarClase"
         :hidden="claseActualId === 1"
-        class="bg-pink-400 text-white font-bold py-1 px-2 rounded-full shadow-lg hover:bg-pink-500 transition duration-300 transform hover:scale-90"
+        id="prev-button"
+        class="button-style"
       >
         Anterior
       </button>
@@ -406,7 +480,8 @@
           (claseActualId === 12 && !respuestaCorrecta) ||
           (claseActualId === 16 && !respuestaCorrecta)
         "
-        class="bg-purple-400 text-white font-bold py-1 px-2 rounded-full shadow-lg hover:bg-purple-500 transition duration-300 transform hover:scale-90"
+        id="next-button"
+        class="button-style"
       >
         Siguiente
       </button>
@@ -558,3 +633,107 @@ const seleccionarOpcion = (opcion: string) => {
   }
 };
 </script>
+<style scoped>
+/* Contenedor principal */
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+/* Contenedor de texto e imagen */
+#content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Estilo del texto */
+#text-content {
+  width: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Imagen */
+#image-content {
+  width: 50%;
+  height: auto;
+  max-width: 600px;
+}
+
+/* Botones */
+#buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 50%;
+}
+
+.button-style {
+  background-color: #d946ef;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: transform 0.3s;
+}
+
+.button-style:hover {
+  transform: scale(0.9);
+}
+
+#prev-button {
+  background-color: #f472b6;
+}
+
+#next-button {
+  background-color: #a78bfa;
+}
+
+/* Media queries para diferentes pantallas */
+
+/* Pantallas pequeñas */
+@media (max-width: 600px) {
+  #content-container {
+    flex-direction: column;
+  }
+
+  #text-content,
+  #image-content {
+    width: 100%;
+  }
+
+  #buttons-container {
+    width: 100%;
+  }
+}
+
+/* Pantallas medianas */
+@media (min-width: 601px) and (max-width: 1024px) {
+  #text-content {
+    font-size: 1.2rem;
+  }
+
+  #image-content {
+    width: 40%;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1025px) {
+  #text-content {
+    font-size: 2rem;
+  }
+
+  #image-content {
+    width: 30%;
+  }
+}
+</style>

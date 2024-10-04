@@ -8,25 +8,17 @@
         </div>
         <div v-else class="flex">
           <div class="w-5/5">
-            <div class="flex justify-between">
-              <button
-                id="show-modal-left"
-                @click="Instrucciones = true"
-                class="bg-blue-400 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:bg-blue-500 transition duration-300 text-2xl w-1/3"
-              >
+            <div class="flex justify-between mb-3">
+              <button id="show-modal-left" @click="Instrucciones = true" class="instruccion-button">
                 Instrucciones
               </button>
-
-              <button
-                id="show-modal-right"
-                @click="comandos = true"
-                class="bg-green-400 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:bg-green-500 transition duration-300 text-2xl w-1/3"
-              >
+              <ButtonConect />
+              <button id="show-modal-right" @click="comandos = true" class="comando-button">
                 Comandos
               </button>
             </div>
             <!-- Ocupa el 80% -->
-            <ButtonConect />
+
             <DropImagen />
           </div>
         </div>
@@ -95,6 +87,106 @@ const comandos = ref(false);
   background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   padding: 20px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Estilo específico para el botón de instrucciones */
+.instruccion-button {
+  background-color: green;
+  font-weight: bold;
+  padding: 10px 20px; /* tamaño de botón por defecto */
+  border-radius: 9999px; /* redondear los botones */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-size: 1.5rem; /* Color específico para Instrucciones */
+}
+
+/* Estilo específico para el botón de comandos */
+.comando-button {
+  background-color: blue;
+  font-weight: bold;
+  padding: 10px 20px; /* tamaño de botón por defecto */
+  border-radius: 9999px; /* redondear los botones */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-size: 1.5rem;
+  /* Color específico para Comandos */
+}
+
+/* Efecto hover para Instrucciones */
+.instruccion-button:hover {
+  background-color: darkgreen; /* Color más oscuro en hover */
+}
+
+/* Efecto hover para Comandos */
+.comando-button:hover {
+  background-color: darkblue; /* Color más oscuro en hover */
+}
+
+/* Estilo por defecto para los botones */
+.button {
+  background-color: #60a5fa; /* color azul */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px; /* tamaño de botón por defecto */
+  border-radius: 9999px; /* redondear los botones */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-size: 1.5rem; /* tamaño de texto por defecto */
+}
+
+/* Efecto hover */
+.button:hover {
+  background-color: #3b82f6; /* azul más oscuro */
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 640px) {
+  .button {
+    width: 80%; /* Botón ocupa el 80% del ancho */
+    padding: 12px 0; /* tamaño de botón para pantallas pequeñas */
+    font-size: 1.5rem; /* tamaño de texto para pantallas pequeñas */
+  }
+}
+
+/* Pantallas medianas */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .button {
+    width: 20%; /* Botón ocupa el 60% del ancho */
+    padding: 14px 0; /* tamaño de botón para pantallas medianas */
+    font-size: 1rem;
+    margin-bottom: 10px; /* tamaño de texto para pantallas medianas */
+  }
+
+  .instruccion-button {
+    background-color: green;
+    font-weight: bold;
+    padding: 10px 20px; /* tamaño de botón por defecto */
+    border-radius: 9999px; /* redondear los botones */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    font-size: 1.5rem; /* Color específico para Instrucciones */
+  }
+
+  /* Estilo específico para el botón de comandos */
+  .comando-button {
+    background-color: blue;
+    font-weight: bold;
+    padding: 7px 15px; /* tamaño de botón por defecto */
+    border-radius: 9999px; /* redondear los botones */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    font-size: 1.5rem;
+    /* Color específico para Comandos */
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1025px) {
+  .button {
+    width: 40%; /* Botón ocupa el 40% del ancho */
+    padding: 16px 0; /* tamaño de botón para pantallas grandes */
+    font-size: 2rem; /* tamaño de texto para pantallas grandes */
+  }
 }
 
 /* Aplicar una transición suave al cambiar de estado conectado/desconectado */

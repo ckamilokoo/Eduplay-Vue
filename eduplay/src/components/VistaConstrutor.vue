@@ -8,89 +8,73 @@
         <img
           src="../assets/bosque/helicoptero1.png"
           alt="Imagen 1"
-          class="mb-4"
+          class="mb-4 sm:w-1/2 md:w-2/4 lg:w-2/6"
           height="400px"
           width="400px"
         />
         <img
           src="../assets/bosque/sabias.png"
           alt="Imagen 1"
-          class="mb-4"
+          class="mb-4 sm:w-1/2 md:w-2/4 lg:w-2/6"
           height="400px"
           width="400px"
         />
       </div>
     </div>
     <div v-if="claseActual && claseActual.id === 2" class="flex flex-col items-center">
-      <video width="900" controls class="mt-4">
-        <source src="../assets/video/edupplay.mp4" type="video/mp4" />
+      <video width="900" controls autoplay muted class="mt-1">
+        <source src="../assets/video/eduplayvideo.mp4" type="video/mp4" />
         Tu navegador no soporta la reproducción de videos.
       </video>
     </div>
     <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-center">
-      <h1 class="text-4xl font-extrabold text-center text-white mb-10">
+      <h1 class="text-2xl font-extrabold text-center text-white mb-1">
         <!--drop-shadow-lg animate-bounce mb-10 -->
         Observa la imagen y utiliza las piezas indicadas
       </h1>
+      <h3 class="font-extrabold text-center text-black">
+        {{ claseActual?.id - 2 }}
+      </h3>
     </div>
 
     <div v-if="claseActual && claseActual.id === 3" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
-
       <img
         src="../assets/helicoptero/1.png"
         alt="Imagen 1"
         class="mb-4"
-        height="600px"
-        width="500px"
+        height="400px"
+        width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 4" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
 
+    <div v-if="claseActual && claseActual.id === 4" class="flex flex-col items-center">
       <img
         src="../assets/helicoptero/2.png"
+        alt="Imagen 1"
+        class="mb-4"
+        height="570px"
+        width="360px"
+      />
+    </div>
+    <div v-if="claseActual && claseActual.id === 5" class="flex flex-col items-center">
+      <img
+        src="../assets/helicoptero/3.png"
         alt="Imagen 1"
         class="mb-4"
         height="700px"
         width="480px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 5" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
-
-      <img
-        src="../assets/helicoptero/3.png"
-        alt="Imagen 1"
-        class="mb-4"
-        height="700px"
-        width="500px"
-      />
-    </div>
     <div v-if="claseActual && claseActual.id === 6" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
-
       <img
         src="../assets/helicoptero/4.png"
         alt="Imagen 1"
         class="mb-4"
         height="700px"
-        width="500px"
+        width="480px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 7" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
-
       <img
         src="../assets/helicoptero/5.png"
         alt="Imagen 1"
@@ -100,29 +84,21 @@
       />
     </div>
     <div v-if="claseActual && claseActual.id === 8" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
-
       <img
         src="../assets/helicoptero/6.png"
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="450px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 9" class="flex flex-col items-center">
-      <h3 class="text-xl font-bold mb-2 text-center">
-        {{ claseActual.contenido }}
-      </h3>
-
       <img
         src="../assets/helicoptero/7.png"
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="470px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 10" class="flex flex-col items-center">
@@ -135,7 +111,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="470px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 11" class="flex flex-col items-center">
@@ -148,7 +124,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="480px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 12" class="flex flex-col items-center">
@@ -161,7 +137,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="490px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 13" class="flex flex-col items-center">
@@ -186,7 +162,7 @@
         src="../assets/helicoptero/13.png"
         alt="Imagen 1"
         class="mb-4"
-        height="400px"
+        height="490px"
         width="400px"
       />
     </div>
@@ -225,8 +201,8 @@
         src="../assets/helicoptero/16.png"
         alt="Imagen 1"
         class="mb-4"
-        height="400px"
-        width="400px"
+        height="430px"
+        width="440px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 18" class="flex flex-col items-center">
@@ -738,7 +714,7 @@
     </div>
 
     <div v-if="claseActual && claseActual.id === 57" class="flex flex-col items-center">
-      <RouterLink to="/" class="flex flex-col items-center">
+      <RouterLink to="/vista-ingeniero" class="flex flex-col items-center">
         <img
           src="../assets/iconos_inicio/icosaedro.png"
           alt="Esfera"
@@ -746,28 +722,26 @@
           height="200px"
           width="200px"
         />
-        <h3 class="text-xl font-bold mb-2 text-center">Volver al Menu Principal</h3>
+        <h3 class="text-xl font-bold mb-2 text-center">Al siguiente nivel</h3>
       </RouterLink>
     </div>
-  </div>
-  <div class="flex justify-between items-center space-x-4 mt-4">
-    <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-center">
-      <h3>{{ claseActual?.id - 2 }}</h3>
-    </div>
-    <button
-      @click="decrementarClase"
-      :hidden="claseActualId === 1"
-      class="bg-pink-400 text-white font-bold py-3 px-4 rounded-full shadow-lg hover:bg-pink-500 transition duration-300 transform hover:scale-90"
-    >
-      Anterior
-    </button>
 
-    <button
-      @click="incrementarClase"
-      class="bg-purple-400 text-white font-bold py-3 px-4 rounded-full shadow-lg hover:bg-purple-500 transition duration-300 transform hover:scale-90"
-    >
-      Siguiente
-    </button>
+    <div class="flex justify-between items-center space-x-4 mt-4">
+      <button
+        @click="decrementarClase"
+        :hidden="claseActualId === 1"
+        class="bg-pink-400 text-white font-bold py-1 px-2 rounded-full shadow-lg hover:bg-pink-500 transition duration-300 transform hover:scale-90"
+      >
+        Anterior
+      </button>
+
+      <button
+        @click="incrementarClase"
+        class="bg-purple-400 text-white font-bold py-1 px-2 rounded-full shadow-lg hover:bg-purple-500 transition duration-300 transform hover:scale-90"
+      >
+        Siguiente
+      </button>
+    </div>
   </div>
 </template>
 

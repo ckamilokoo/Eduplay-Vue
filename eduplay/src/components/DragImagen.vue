@@ -198,7 +198,7 @@ const handleDrop = (event) => {
   background-color: rgba(255, 255, 255, 0.7);
   border: 4px dashed #4ecdc4;
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px;
   min-height: 200px;
   display: flex;
   flex-direction: column;
@@ -236,8 +236,8 @@ const handleDrop = (event) => {
 }
 
 .uploaded-image {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   cursor: pointer;
   border-radius: 10px;
@@ -266,7 +266,7 @@ const handleDrop = (event) => {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .selectable-image-wrapper {
@@ -292,14 +292,14 @@ const handleDrop = (event) => {
 }
 
 .fun-button {
-  padding: 10px 20px;
+  padding: 7px 12px;
   font-size: 1rem;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   border: none;
-  border-radius: 50px;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 10px;
+  margin: 7px;
 }
 
 .clearbutton {
@@ -326,5 +326,47 @@ const handleDrop = (event) => {
 .image-list-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+
+/* Pantallas medianas */
+/* Pantallas medianas */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .title {
+    font-size: 2rem; /* Tamaño de fuente medio */
+  }
+
+  .uploaded-image {
+    width: 70px; /* Tamaño de imagen medio */
+    height: 70px;
+  }
+
+  .selectable-image {
+    width: 60px; /* Tamaño de imagen seleccionable medio */
+    height: 60px;
+  }
+
+  .fun-button {
+    font-size: 0.9rem; /* Tamaño de botón medio */
+    width: 100%; /* Asegúrate de que los botones ocupen todo el ancho */
+    margin: 10px 0; /* Espaciado vertical entre los botones */
+  }
+
+  .image-selection {
+    flex-direction: column; /* Cambiar a columna en pantallas medianas */
+    align-items: center; /* Alinear los botones a todo el ancho del contenedor */
+  }
+
+  .drop-zone {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 4px dashed #4ecdc4;
+    border-radius: 20px;
+    padding: 10px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
 }
 </style>

@@ -1,32 +1,32 @@
 <template>
   <div class="main-container">
     <div id="indicaciones" v-if="!isConnected" class="text-center">
-      <h1 class="text-2xl font-bold text-black rounded-lg shadow-md">
+      <h1 class="text-xl font-bold text-black rounded-lg shadow-md">
         Conectemos el Helicóptero al tablet
       </h1>
 
-      <h2 class="text-xl font-bold text-black p-2 rounded-lg shadow-md">
+      <h2 class="text-l font-bold text-black p-1 rounded-lg shadow-md">
         1. Presiona durante 5 segundos el botón superior de tu helicóptero como se muestra en la
         imagen que sigue:
       </h2>
       <img
         src="../assets/motor_encendido.png"
         class="mx-auto"
-        height="100px"
-        width="100px"
+        height="70px"
+        width="70px"
         alt="Motor encendido"
       />
-      <h2 class="text-xl font-bold text-black p-2 rounded-lg shadow-md">
+      <h2 class="text-l font-bold text-black p-1 rounded-lg shadow-md">
         2. Activa el bluetooth del Tablet presionando el siguiente ícono:
       </h2>
       <img
         src="../assets/bluethooth.png"
         class="mx-auto"
-        width="100px"
-        height="100px"
+        width="70px"
+        height="70px"
         alt="Bluetooth"
       />
-      <h2 class="text-xl font-bold text-black rounded-lg">
+      <h2 class="text-l font-bold text-black rounded-lg">
         Si se conectó a su modelo correctamente, debería mostrarse la siguiente pantalla
       </h2>
     </div>
@@ -41,18 +41,18 @@
         :disabled="isLoading"
       >
         <span v-if="isLoading">Buscando tu MODELO ...</span>
-        <span v-else>Conectar a tu MODELO</span>
+        <span v-else>Conectar MODELO</span>
       </button>
 
       <button
         v-else
         @click="disconnectFromWeDo"
-        class="mt-3"
+        class="ml-10"
         :class="{ disconnect: isConnected, loading: isLoading }"
         :disabled="isLoading"
       >
         <span v-if="isLoading">Desconectando...</span>
-        <span v-else>Desconectar de tu MODELO</span>
+        <span v-else>Desconectar MODELO</span>
       </button>
     </div>
   </div>
@@ -154,7 +154,7 @@ const disconnectFromWeDo = async () => {
   flex: 1;
   max-width: 50%;
   background-color: url('@/assets/fondo/fondo_eduplay.png');
-  padding: 20px;
+  padding: 3px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -165,11 +165,11 @@ const disconnectFromWeDo = async () => {
 }
 
 p {
-  font-size: 25px;
+  font-size: 15px;
 }
 
 button {
-  padding: 5px 10px;
+  padding: 2px 7px;
   color: white;
   border: none;
   border-radius: 5px;
@@ -185,7 +185,14 @@ button.connect {
 
 button.disconnect {
   background-color: #dc3545;
-  font-size: 25px;
+  font-size: 20px;
+  padding: 2px 3px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: background-color 0.3s ease;
 }
 
 button.connect:hover {
