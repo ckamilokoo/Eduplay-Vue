@@ -24,11 +24,11 @@
       <img
         src="../assets/bosque/imagen_2.jpg"
         alt="Imagen 1"
-        class="w-full sm:w-1/2 md:w-2/4 lg:w-2/6"
+        class="w-full sm:w-1/2 md:w-2/4 lg:w-3/6"
         height="300px"
         width="300px"
       />
-      <h3 class="w-auto sm:w-1/2 md:w-2/4 lg:w-3/6 text-xl font-bold mb-2 text-right">
+      <h3 class="w-auto sm:w-1/2 md:w-2/4 lg:w-3/6 text-xl font-bold mb-2 text-right mr-2">
         {{ claseActual.contenido }}
       </h3>
     </div>
@@ -43,9 +43,7 @@
       <img
         src="../assets/bosque/imagen_3.jfif"
         alt="Imagen 1"
-        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-2/6"
-        height="500px"
-        width="490px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
     </div>
     <div
@@ -53,11 +51,11 @@
       class="flex flex-row items-start justify-between h-full"
     >
       <!-- Contenedor izquierdo con imagen y texto -->
-      <div class="flex flex-col items-start justify-between h-full sm:w-1/2 md:w-3/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-4/6">
         <img
           src="../assets/bosque/imagen_4.jpg"
           alt="Imagen 1"
-          class="mb-4 sm:w-1/2 md:w-3/4 lg:w-2/6 object-cover"
+          class="mb-4 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
         />
 
         <h3 class="w-full text-xl font-bold mb-2 text-center">
@@ -66,8 +64,9 @@
       </div>
 
       <!-- Contenedor derecho para los botones -->
-      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6 mt-40">
         <div class="flex flex-col space-y-4">
+          <!-- Botón Opción A -->
           <button
             :class="[
               'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
@@ -75,13 +74,14 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('A')"
           >
             {{ claseActual.OpcionA }}
           </button>
 
+          <!-- Botón Opción B -->
           <button
             :class="[
               'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
@@ -89,13 +89,14 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-green-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('B')"
           >
             {{ claseActual.OpcionB }}
           </button>
 
+          <!-- Botón Opción C -->
           <button
             :class="[
               'bg-blue-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300',
@@ -103,7 +104,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('C')"
           >
@@ -121,13 +122,11 @@
       <img
         src="../assets/bosque/imagen_5.jfif"
         alt="Imagen 1"
-        class="w-3/6 mb-4"
-        height="400px"
-        width="300px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
 
       <!-- Texto a la izquierda, ocupa el 60% del espacio -->
-      <h3 class="w-3/6 text-xl font-bold mb-2 text-left">
+      <h3 class="w-3/6 text-xl font-bold mb-2 text-left ml-4">
         {{ claseActual.contenido }}
       </h3>
     </div>
@@ -139,7 +138,11 @@
       <h3 class="w-3/6 text-xl font-bold mb-2 text-left">
         {{ claseActual.contenido }}
       </h3>
-      <img src="../assets/bosque/imagen_6.jfif" alt="Imagen 6" class="w-3/6 mb-4" />
+      <img
+        src="../assets/bosque/imagen_6.jfif"
+        alt="Imagen 6"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
+      />
     </div>
     <div
       v-if="claseActual && claseActual.id === 7"
@@ -151,23 +154,19 @@
       <img
         src="../assets/bosque/imagen_7.jpg"
         alt="Imagen 1"
-        class="w-3/6 mb-4"
-        height="400px"
-        width="500px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
     </div>
     <div
       v-if="claseActual && claseActual.id === 8"
-      class="flex flex-row items-center justify-between"
+      class="flex flex-row items-start justify-between h-full"
     >
       <!-- Contenedor izquierdo con imagen y texto -->
-      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-4/6">
         <img
           src="../assets/bosque/idea2.jfif"
           alt="Imagen 1"
-          class="mr-4"
-          height="250px"
-          width="250px"
+          class="mb-4 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
         />
 
         <h3 class="w-full text-xl font-bold mb-2 text-center">
@@ -176,7 +175,7 @@
       </div>
 
       <!-- Contenedor derecho para los botones -->
-      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6 mt-40">
         <div class="flex flex-col space-y-4">
           <button
             :class="[
@@ -185,7 +184,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('A')"
           >
@@ -199,7 +198,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('B')"
           >
@@ -213,7 +212,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-green-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('C')"
           >
@@ -232,9 +231,7 @@
       <img
         src="../assets/bosque/imagen_9.jpeg"
         alt="Imagen 1"
-        class="w-3/6 mb-4"
-        height="400px"
-        width="400px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
     </div>
     <div
@@ -244,9 +241,7 @@
       <img
         src="../assets/bosque/imagen_10.jpeg"
         alt="Imagen 1"
-        class="w-3/6 mb-4"
-        height="400px"
-        width="400px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
       <h3 class="w-3/6 text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
@@ -260,9 +255,7 @@
       <img
         src="../assets/bosque/imagen_11.jfif"
         alt="Imagen 1"
-        class="w-1/2 h-auto"
-        height="400px"
-        width="400px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
 
       <!-- Texto a la derecha -->
@@ -273,25 +266,23 @@
 
     <div
       v-if="claseActual && claseActual.id === 12"
-      class="flex flex-row items-center justify-between"
+      class="flex flex-row items-start justify-between h-full"
     >
       <!-- Contenedor izquierdo con imagen y texto -->
-      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-4/6">
         <img
           src="../assets/bosque/idea2.jfif"
           alt="Imagen 1"
-          class="mr-2"
-          height="250px"
-          width="250px"
+          class="mr-2 mb-4 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
         />
 
-        <h3 class="w-full text-l font-bold mb-2 text-center sm:w-1/2 md:w-2/4 lg:w-2/6">
+        <h3 class="w-full text-xl font-bold mb-2 text-center">
           {{ claseActual.contenido }}
         </h3>
       </div>
 
       <!-- Contenedor derecho para los botones -->
-      <div class="flex flex-col items-center justify-center mt-4 pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6 mt-40">
         <div class="flex flex-col space-y-4">
           <button
             :class="[
@@ -300,7 +291,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('A')"
           >
@@ -314,7 +305,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-green-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('B')"
           >
@@ -328,7 +319,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('C')"
           >
@@ -347,53 +338,48 @@
       <img
         src="../assets/bosque/imagen_13.jfif"
         alt="Imagen 1"
-        class="mb-4 w-3/6"
-        height="200px"
-        width="200px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
     </div>
     <div
       v-if="claseActual && claseActual.id === 14"
       class="flex flex-row items-center justify-between"
     >
-      <h3 class="text-l font-bold mb-2 text-center w-3/6">
+      <h3 class="text-lg sm:text-xl md:text-l lg:text-1xl xl:text-2xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
+
       <img
         src="../assets/bosque/imagen_14.jfif"
         alt="Imagen 1"
-        class="mb-4 w-3/6"
-        height="400px"
-        width="325px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
     </div>
     <div
       v-if="claseActual && claseActual.id === 15"
       class="flex flex-row items-center justify-between"
     >
-      <h3 class="text-l font-bold mb-2 text-center w-3/6">
+      <h3
+        class="text-lg sm:text-xl md:text-l lg:text-1xl xl:text-2xl font-bold mb-2 text-center w-3/6"
+      >
         {{ claseActual.contenido }}
       </h3>
       <img
         src="../assets/bosque/imagen_15.jfif"
         alt="Imagen 1"
-        class="mb-4 w-3/6"
-        height="400px"
-        width="350px"
+        class="mb-4 w-full sm:w-1/2 md:w-2/4 lg:w-3/6 h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
       />
     </div>
     <div
       v-if="claseActual && claseActual.id === 16"
-      class="flex flex-row items-center justify-between"
+      class="flex flex-row items-start justify-between h-full"
     >
       <!-- Contenedor izquierdo con imagen y texto -->
-      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-2/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-between h-full sm:w-1/2 md:w-3/4 lg:w-4/6">
         <img
           src="../assets/bosque/imagen_16.jfif"
           alt="Imagen 1"
-          class="mr-4"
-          height="250px"
-          width="250px"
+          class="mr-2 mb-4 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
         />
 
         <h3 class="w-full text-l font-bold mb-2 text-center">
@@ -402,7 +388,7 @@
       </div>
 
       <!-- Contenedor derecho para los botones -->
-      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-2/4 lg:w-2/6">
+      <div class="flex flex-col items-center justify-center pr-6 sm:w-1/2 md:w-1/4 lg:w-2/6 mt-40">
         <div class="flex flex-col space-y-4">
           <button
             :class="[
@@ -411,7 +397,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-green-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('A')"
           >
@@ -425,7 +411,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('B')"
           >
@@ -439,7 +425,7 @@
                 ? respuestaCorrecta
                   ? 'bg-green-500'
                   : 'bg-red-500'
-                : 'hover:bg-red-500',
+                : 'hover:bg-blue-500',
             ]"
             @click="seleccionarOpcion('C')"
           >
@@ -457,7 +443,7 @@
           height="200px"
           width="200px"
         />
-        <h3 class="text-xl font-bold mb-2 text-center">Siguiente Nivel</h3>
+        <h3 class="text-xl font-bold mb-2 text-center">Nivel Completado</h3>
       </RouterLink>
     </div>
 
@@ -585,18 +571,30 @@ const clases = [
   },
 ];
 
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 const clasesArray = ref(clases);
 const claseActualId = ref(1);
-
+const router = useRouter();
 const claseActual = computed(() => {
   return clasesArray.value.find((clase) => clase.id === claseActualId.value);
+});
+
+// Observa cambios en claseActual
+watch(claseActual, (newClase) => {
+  if (newClase && newClase.id === 17) {
+    // Redirige después de 10 segundos
+    setTimeout(() => {
+      router.push('/');
+    }, 10000);
+  }
 });
 
 const incrementarClase = () => {
   if (claseActualId.value < 17) {
     respuestaCorrecta.value = false;
+    opcionSeleccionada.value = '';
     claseActualId.value += 1;
   }
 };
@@ -604,6 +602,7 @@ const incrementarClase = () => {
 const decrementarClase = () => {
   if (claseActualId.value > 1) {
     claseActualId.value -= 1;
+    opcionSeleccionada.value = '';
   }
 };
 

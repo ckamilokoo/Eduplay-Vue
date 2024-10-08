@@ -1,55 +1,45 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { RouterView } from 'vue-router';
-import Tarjeta from './components/BuscarGrupo.vue';
-import { Eleccion, GrupoElegido } from './composables/store';
 
-const cambiarvalor = () => {
-  Eleccion.value = !Eleccion.value;
-};
+import Tarjeta from '../components/BuscarGrupo.vue';
 
-// Computed para obtener la información del grupo elegido
-const grupoSeleccionado = computed(() => {
-  return GrupoElegido.value.length > 0 ? GrupoElegido.value[0] : null;
-});
-// Hacemos que Eleccion sea reactiva
+let Eleccion = true;
 </script>
 
 <template>
   <div id="app-container" class="flex h-screen">
     <!-- Sidebar -->
-    <Tarjeta v-if="!Eleccion" />
-    <button @click="cambiarvalor">cambiar</button>
-    <aside v-if="Eleccion" id="sidebar" class="sidebar">
-      <div>
-        <RouterLink to="/" class="flex flex-col items-center">
-          <img alt="Vue logo" id="logo" src="@/assets/EDUPLAY.png" width="200" height="200" />
-        </RouterLink>
+    <div>
+      <aside id="sidebar" class="sidebar">
+        <div>
+          <RouterLink to="/" class="flex flex-col items-center">
+            <img alt="Vue logo" id="logo" src="@/assets/EDUPLAY.png" width="200" height="200" />
+          </RouterLink>
+        </div>
+
+        <h2 id="group-title" class="group-title">Grupo 1 🌟</h2>
+        <ul id="members-list" class="members-list">
+          <li class="member-item">👦 Camilo Campos</li>
+          <li class="member-item">👦 Camilo Campos</li>
+          <li class="member-item">👦 Camilo Campos</li>
+        </ul>
+
+        <button id="save-button" class="save-button">Guardar</button>
+      </aside>
+
+      <div id="main-content" class="flex flex-col flex-1 bg-main">
+        <!-- Header -->
+        <header id="header" class="header">
+          <h1 class="header-title">Colegio XXXX</h1>
+          <hr class="header-divider" />
+          <h1 class="header-title">2do. grado</h1>
+        </header>
+
+        <!-- Main Content -->
+        <main id="router-view" class="main-content">
+          <RouterView />
+        </main>
       </div>
-
-      <h2 id="group-title" class="group-title">
-        {{ grupoSeleccionado ? grupoSeleccionado.nombre : 'Grupo no seleccionado' }} 🌟
-      </h2>
-      <ul id="members-list" class="members-list">
-        <li v-for="alumno in grupoSeleccionado?.alumnos ?? []" :key="alumno.id" class="member-item">
-          👦 {{ alumno.nombre }}
-        </li>
-      </ul>
-
-      <button id="save-button" class="save-button">Guardar</button>
-    </aside>
-
-    <div v-if="Eleccion" id="main-content" class="flex flex-col flex-1 bg-main">
-      <!-- Header -->
-      <header id="header" class="header">
-        <h1 class="header-title">{{ grupoSeleccionado?.colegio }}</h1>
-        <hr class="header-divider" />
-      </header>
-
-      <!-- Main Content -->
-      <main id="router-view" class="main-content">
-        <RouterView />
-      </main>
     </div>
   </div>
 </template>
@@ -136,7 +126,7 @@ const grupoSeleccionado = computed(() => {
 
 .header-title {
   text-align: center; /* Centrar texto */
-  font-size: 2rem; /* Tamaño de fuente */
+  font-size: 1.5rem; /* Tamaño de fuente */
   font-weight: 800; /* Fuente extra negrita */
   color: #4caf50; /* Color verde */
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra de texto */

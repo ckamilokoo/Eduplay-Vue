@@ -39,6 +39,67 @@ def crear_grupos(curso_id, tamano_grupo):
     flash('Grupos creados exitosamente.', 'success')
     return redirect(url_for('main.registro'))
 
+
+@main_bp.route('/grupos', methods=['GET'])
+def get_grupos():
+    # Obtener todos los grupos de la base de datos
+    grupos = Grupo.query.all()
+    
+    # Convertir los grupos a un formato que jsonify pueda manejar
+    grupos_list = []
+    for grupo in grupos:
+        grupos_list.append({
+            'id': grupo.id,
+            'nombre': grupo.nombre,
+            'curso_id': grupo.curso_id,
+            'alumnos': [{'id': alumno.id, 'nombre': alumno.nombre} for alumno in grupo.alumnos]
+        })
+    
+    # Devolver la lista de grupos como respuesta JSON
+    return jsonify(grupos_list)
+
+@main_bp.route('/cursos', methods=['GET'])
+def get_cursos():
+    # Obtener todos los cursos de la base de datos
+    cursos = Curso.query.all()
+    
+    # Convertir los cursos a un formato que jsonify pueda manejar
+    cursos_list = []
+    for curso in cursos:
+        cursos_list.append({
+            'id': curso.id,
+            'nombre': curso.nombre,
+            'descripcion': curso.descripcion,
+            'profesor_id': curso.profesor_id,
+            'colegio': curso.colegio,
+            'profesor_nombre': curso.profesor.nombre  # Para incluir el nombre del profesor
+        })
+    
+    # Devolver la lista de cursos como respuesta JSON
+    return jsonify(cursos_list)
+
+@main_bp.route('/alumnos', methods=['GET'])
+def get_alumnos():
+    # Obtener todos los alumnos de la base de datos
+    alumnos = Alumno.query.all()
+    
+    # Convertir los alumnos a un formato que jsonify pueda manejar
+    alumnos_list = []
+    for alumno in alumnos:
+        alumnos_list.append({
+            'id': alumno.id,
+            'nombre': alumno.nombre,
+            'curso_id': alumno.curso_id,
+            'grupo_id': alumno.grupo_id,
+            'curso_nombre': alumno.curso.nombre,  # Para incluir el nombre del curso
+            'grupo_nombre': alumno.grupo.nombre if alumno.grupo else None  # Incluir el nombre del grupo si existe
+        })
+    
+    # Devolver la lista de alumnos como respuesta JSON
+    return jsonify(alumnos_list)
+
+
+
 @main_bp.route('/eliminar_grupo/<int:grupo_id>', methods=['POST'])
 def eliminar_grupo(grupo_id):
     # Buscar el grupo por su ID
@@ -60,24 +121,7 @@ def eliminar_grupo(grupo_id):
     flash('Grupo eliminado exitosamente.', 'success')
     return redirect(url_for('main.registro'))
 
-@main_bp.route('/alumnos')
-def get_alumnos():
-    # Obtener todos los alumnos de la base de datos
-    alumnos = Alumno.query.all()
-    
-    # Convertir los alumnos a un formato que jsonify pueda manejar
-    alumnos_list = []
-    for alumno in alumnos:
-        alumnos_list.append({
-            'id': alumno.id,
-            'nombre': alumno.nombre,
-            'email': alumno.email,
-            'curso_id': alumno.curso_id,
-            'grupo_id': alumno.grupo_id
-        })
-    
-    # Devolver la lista de alumnos como respuesta JSON
-    return jsonify(alumnos_list) 
+
 
 @main_bp.route('/registro', methods=['GET'])
 def registro():

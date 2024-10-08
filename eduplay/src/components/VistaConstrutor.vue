@@ -22,7 +22,7 @@
       </div>
     </div>
     <div v-if="claseActual && claseActual.id === 2" class="flex flex-col items-center">
-      <video width="900" controls autoplay muted class="mt-1">
+      <video width="700" controls autoplay muted class="mt-1">
         <source src="../assets/video/eduplayvideo.mp4" type="video/mp4" />
         Tu navegador no soporta la reproducción de videos.
       </video>

@@ -52,7 +52,6 @@ const availableImages = ref([
   '/src/assets/comandos/naranja.png',
   '/src/assets/comandos/izquierda.png',
   '/src/assets/comandos/derecha.png',
-  '/src/assets/comandos/off.png',
 ]);
 
 // Función para calcular el comando del motor en base a la velocidad

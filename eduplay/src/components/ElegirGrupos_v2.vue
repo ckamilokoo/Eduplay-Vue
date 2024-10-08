@@ -1,6 +1,12 @@
 <template>
   <div id="grid-container" class="grid">
-    <RouterLink to="/video-historia" class="flex flex-col items-center" id="link-empecemos">
+    <RouterLink
+      to="/video-historia"
+      @click="nivelStorage.agregarNivel('Historia')"
+      class="flex flex-col items-center"
+      id="link-empecemos"
+      :class="getLinkClass(0)"
+    >
       <img
         src="../assets/iconos_inicio/cilindro.png"
         alt="Cilindro"
@@ -10,7 +16,12 @@
       <h3 id="title-empecemos" class="animate-bounce">Empecemos</h3>
     </RouterLink>
 
-    <RouterLink to="/vista-Construtor" class="flex flex-col items-center" id="link-construyamos">
+    <RouterLink
+      to="/vista-Construtor"
+      class="flex flex-col items-center"
+      id="link-construyamos"
+      :class="getLinkClass(1)"
+    >
       <img
         src="../assets/iconos_inicio/esfera.png"
         alt="Esfera"
@@ -20,7 +31,12 @@
       <h3 id="title-construyamos" class="animate-bounce">Construyamos</h3>
     </RouterLink>
 
-    <RouterLink to="/vista-ingeniero" class="flex flex-col items-center" id="link-programemos">
+    <RouterLink
+      to="/vista-ingeniero"
+      class="flex flex-col items-center"
+      id="link-programemos"
+      :class="getLinkClass(2)"
+    >
       <img
         src="../assets/iconos_inicio/cuadrangular.png"
         alt="Cuadrangular"
@@ -30,7 +46,12 @@
       <h3 id="title-programemos" class="animate-bounce">Programemos</h3>
     </RouterLink>
 
-    <RouterLink to="/vista-final" class="flex flex-col items-center" id="link-presentemos">
+    <RouterLink
+      to="/vista-final"
+      class="flex flex-col items-center"
+      id="link-presentemos"
+      :class="getLinkClass(3)"
+    >
       <img
         src="../assets/iconos_inicio/piramide.png"
         alt="Pirámide"
@@ -42,9 +63,42 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+import { useNivelesStore } from '@/almacenamiento/Niveles.store';
+
+const nivelStorage = useNivelesStore();
+
+console.log(nivelStorage.niveles.length);
+// Función para obtener la clase del enlace
+const getLinkClass = (index: number) => {
+  const count = nivelStorage.niveles.length;
+  if (count === 0) return ''; // Si no hay niveles, no se aplica clase
+
+  // Cálculo de la opacidad
+  const opacity = (index < count ? 1 : 0.5) * (count / 4);
+  return `opacity-${opacity}`; // Puedes aplicar estilos CSS a esta clase
+};
+
+getLinkClass(1);
+</script>
 
 <style scoped>
+.opacity-1 {
+  opacity: 1; /* Totalmente visible */
+}
+
+.opacity-75 {
+  opacity: 0.75; /* 75% visible */
+}
+
+.opacity-5 {
+  opacity: 0.5; /* 50% visible */
+}
+
+.opacity-25 {
+  opacity: 0.25; /* 25% visible */
+}
+
 /* Estilos generales */
 #grid-container {
   display: grid;
