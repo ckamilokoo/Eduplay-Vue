@@ -10,3 +10,5 @@ export const connectedDevice = ref(null);
 export const GrupoElegido = ref<GrupoSeleccionado[]>([]);
 
 export const Eleccion = ref(false);
+
+export const Guardado = ref(false);

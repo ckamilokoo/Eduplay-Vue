@@ -2,10 +2,9 @@
   <div id="grid-container" class="grid">
     <RouterLink
       to="/video-historia"
-      @click="nivelStorage.agregarNivel('Historia')"
       class="flex flex-col items-center"
       id="link-empecemos"
-      :class="getLinkClass(0)"
+      :class="getImageClass(0)"
     >
       <img
         src="../assets/iconos_inicio/cilindro.png"
@@ -20,7 +19,7 @@
       to="/vista-Construtor"
       class="flex flex-col items-center"
       id="link-construyamos"
-      :class="getLinkClass(1)"
+      :class="getImageClass(1)"
     >
       <img
         src="../assets/iconos_inicio/esfera.png"
@@ -33,9 +32,10 @@
 
     <RouterLink
       to="/vista-ingeniero"
+      @click="nivelStorage.agregarNivel('Ingeniero')"
       class="flex flex-col items-center"
       id="link-programemos"
-      :class="getLinkClass(2)"
+      :class="getImageClass(2)"
     >
       <img
         src="../assets/iconos_inicio/cuadrangular.png"
@@ -48,9 +48,10 @@
 
     <RouterLink
       to="/vista-final"
+      @click="nivelStorage.agregarNivel('Presentacion')"
       class="flex flex-col items-center"
       id="link-presentemos"
-      :class="getLinkClass(3)"
+      :class="getImageClass(3)"
     >
       <img
         src="../assets/iconos_inicio/piramide.png"
@@ -64,39 +65,46 @@
 </template>
 
 <script setup lang="ts">
+import { watch, ref, computed } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
 
 const nivelStorage = useNivelesStore();
 
-console.log(nivelStorage.niveles.length);
-// Función para obtener la clase del enlace
-const getLinkClass = (index: number) => {
-  const count = nivelStorage.niveles.length;
-  if (count === 0) return ''; // Si no hay niveles, no se aplica clase
-
-  // Cálculo de la opacidad
-  const opacity = (index < count ? 1 : 0.5) * (count / 4);
-  return `opacity-${opacity}`; // Puedes aplicar estilos CSS a esta clase
+// Computa las clases de opacidad y deshabilitación en función del largo de niveles
+const getImageClass = (index: number) => {
+  const length = nivelStorage.niveles.length;
+  if (length === 0 && index > 0) {
+    return 'opacity-50 pointer-events-none'; // Todos menos el primero al 50% de opacidad y deshabilitados
+  }
+  if (length === 1 && (index === 2 || index === 3)) {
+    return 'opacity-50 pointer-events-none'; // El tercer y cuarto al 50% y deshabilitados
+  }
+  if (length === 2 && index === 3) {
+    return 'opacity-50 pointer-events-none'; // Solo el cuarto al 50% y deshabilitado
+  }
+  return 'opacity-100'; // Todos visibles y habilitados
 };
 
-getLinkClass(1);
+// Observa cambios en la longitud de niveles
+watch(
+  () => nivelStorage.niveles.length,
+  (newLength, oldLength) => {
+    console.log(`La longitud de niveles ha cambiado: ${oldLength} -> ${newLength}`);
+  },
+);
 </script>
 
 <style scoped>
-.opacity-1 {
+.opacity-100 {
   opacity: 1; /* Totalmente visible */
 }
 
-.opacity-75 {
-  opacity: 0.75; /* 75% visible */
+.opacity-50 {
+  opacity: 0.5; /* 50% de opacidad */
 }
 
-.opacity-5 {
-  opacity: 0.5; /* 50% visible */
-}
-
-.opacity-25 {
-  opacity: 0.25; /* 25% visible */
+.pointer-events-none {
+  pointer-events: none; /* Deshabilitar interacción */
 }
 
 /* Estilos generales */

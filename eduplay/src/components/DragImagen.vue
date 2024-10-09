@@ -27,11 +27,35 @@
       <button class="fun-button sendbutton" @click="sendCommands">Enviar Comandos</button>
       <div class="available-images">
         <img
-          v-for="(img, index) in availableImages"
-          :key="index"
-          :src="img"
+          src="/src/assets/comandos/celeste.png"
           class="selectable-image"
-          @click="selectImage(img)"
+          img="/src/assets/comandos/celeste.png"
+          @click="selectImage('/src/assets/comandos/celeste.png')"
+        />
+        <img
+          src="/src/assets/comandos/naranja.png"
+          class="selectable-image"
+          @click="selectImage('/src/assets/comandos/naranja.png')"
+        />
+        <img
+          src="/src/assets/comandos/rojo.png"
+          class="selectable-image"
+          @click="selectImage('/src/assets/comandos/rojo.png')"
+        />
+        <img
+          src="/src/assets/comandos/verde.png"
+          class="selectable-image"
+          @click="selectImage('/src/assets/comandos/verde.png')"
+        />
+        <img
+          src="/src/assets/comandos/izquierda.png"
+          class="selectable-image"
+          @click="selectImage('/src/assets/comandos/izquierda.png')"
+        />
+        <img
+          src="/src/assets/comandos/derecha.png"
+          class="selectable-image"
+          @click="selectImage('/src/assets/comandos/derecha.png')"
         />
       </div>
     </div>
@@ -39,20 +63,54 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useNivelesStore } from '@/almacenamiento/Niveles.store';
+import { useRouter } from 'vue-router';
+const nivelStorage = useNivelesStore();
+const router = useRouter();
 
 const imagenes = ref([]);
 const draggin = ref(false);
 const maxImages = 7;
+const isOrderCorrect = ref(false);
 
-const availableImages = ref([
-  '/src/assets/comandos/celeste.png',
+// Observa cambios en claseActual
+watch(isOrderCorrect, (correctorder) => {
+  if (correctorder === true) {
+    // Redirige después de 10 segundos
+    nivelStorage.agregarNivel('Ingeniero');
+    setTimeout(() => {
+      router.push('/');
+    }, 5000);
+  }
+});
+
+const expectedOrder = [
+  '/src/assets/comandos/derecha.png',
+  '/src/assets/comandos/derecha.png',
   '/src/assets/comandos/rojo.png',
   '/src/assets/comandos/verde.png',
-  '/src/assets/comandos/naranja.png',
   '/src/assets/comandos/izquierda.png',
-  '/src/assets/comandos/derecha.png',
-]);
+  '/src/assets/comandos/izquierda.png',
+];
+
+// Función para verificar si el orden de los comandos es correcto
+const checkCommandOrder = (sentCommands) => {
+  // Crear un arreglo con los comandos enviados en el mismo orden
+  const sentImages = sentCommands;
+
+  // Comparar el orden de comandos enviados con el orden esperado
+  const isCorrectOrder = sentImages.every((img, index) => img === expectedOrder[index]);
+
+  if (isCorrectOrder) {
+    console.log('Orden correcto de comandos.');
+    isOrderCorrect.value = true;
+  } else {
+    console.log('Orden incorrecto de comandos.');
+  }
+};
+
+console.log(imagenes);
 
 // Función para calcular el comando del motor en base a la velocidad
 const getMotorCommand = (speed) => {
@@ -112,6 +170,9 @@ const motorMap = {
   },
 };
 
+// Función para esperar un tiempo específico
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Función para ejecutar comandos secuenciales
 const executeSequentially = async (commands) => {
   for (const command of commands) {
@@ -134,14 +195,18 @@ const sendCommands = async () => {
         console.log(`Enviando comando de color para: ${img}`);
         commands.push(async () => {
           await window.colorCharacteristic.writeValue(colorMap[img]);
+          await wait(1000); // Esperar 1 segundo antes de enviar el próximo comando de color
         });
       } else if (motorMap[img]) {
         console.log(`Enviando comando de motor para: ${img}`);
         commands.push(motorMap[img]); // Agregar el comando del motor a la lista
       }
     }
-    await executeSequentially(commands); // Ejecutar todos los comandos en secuencia
+
+    await executeSequentially(commands);
+    // Ejecutar todos los comandos en secuencia
     console.log('Comandos enviados con éxito.');
+    checkCommandOrder(imagenes.value);
   } catch (error) {
     console.error('Error enviando los comandos:', error);
   }

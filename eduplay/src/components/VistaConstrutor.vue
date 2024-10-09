@@ -27,12 +27,13 @@
         Tu navegador no soporta la reproducción de videos.
       </video>
     </div>
-    <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-start">
       <h1 class="text-2xl font-extrabold text-center text-white mb-1">
-        <!--drop-shadow-lg animate-bounce mb-10 -->
         Observa la imagen y utiliza las piezas indicadas
       </h1>
-      <h3 class="font-extrabold text-center text-black">
+    </div>
+    <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-start w-full">
+      <h3 class="font-extrabold text-4xl text-black w-full ml-0">
         {{ claseActual?.id - 2 }}
       </h3>
     </div>
@@ -43,7 +44,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="510px"
       />
     </div>
 
@@ -53,7 +54,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="570px"
-        width="360px"
+        width="460px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 5" class="flex flex-col items-center">
@@ -61,8 +62,8 @@
         src="../assets/helicoptero/3.png"
         alt="Imagen 1"
         class="mb-4"
-        height="700px"
-        width="480px"
+        height="500px"
+        width="570px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 6" class="flex flex-col items-center">
@@ -70,8 +71,8 @@
         src="../assets/helicoptero/4.png"
         alt="Imagen 1"
         class="mb-4"
-        height="700px"
-        width="480px"
+        height="500px"
+        width="580px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 7" class="flex flex-col items-center">
@@ -79,8 +80,8 @@
         src="../assets/helicoptero/5.png"
         alt="Imagen 1"
         class="mb-4"
-        height="700px"
-        width="500px"
+        height="500px"
+        width="600px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 8" class="flex flex-col items-center">
@@ -88,8 +89,8 @@
         src="../assets/helicoptero/6.png"
         alt="Imagen 1"
         class="mb-4"
-        height="400px"
-        width="450px"
+        height="500px"
+        width="580px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 9" class="flex flex-col items-center">
@@ -97,8 +98,8 @@
         src="../assets/helicoptero/7.png"
         alt="Imagen 1"
         class="mb-4"
-        height="400px"
-        width="470px"
+        height="500px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 10" class="flex flex-col items-center">
@@ -111,7 +112,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="470px"
+        width="670px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 11" class="flex flex-col items-center">
@@ -124,7 +125,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="480px"
+        width="680px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 12" class="flex flex-col items-center">
@@ -137,10 +138,23 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="490px"
+        width="680px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 13" class="flex flex-col items-center">
+      <h3 class="text-xl font-bold mb-2 text-center">
+        {{ claseActual.contenido }}
+      </h3>
+
+      <img
+        src="../assets/helicoptero/11.png"
+        alt="Imagen 1"
+        class="mb-4"
+        height="400px"
+        width="520px"
+      />
+    </div>
+    <div v-if="claseActual && claseActual.id === 14" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -150,10 +164,10 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="560px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 14" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 15" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -163,10 +177,10 @@
         alt="Imagen 1"
         class="mb-4"
         height="490px"
-        width="400px"
+        width="500px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 15" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 16" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -176,10 +190,10 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="640px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 16" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 17" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -189,10 +203,10 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="570px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 17" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 18" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -202,10 +216,10 @@
         alt="Imagen 1"
         class="mb-4"
         height="430px"
-        width="440px"
+        width="570px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 18" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 19" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -218,7 +232,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 19" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 20" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -231,7 +245,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 20" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 21" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -244,7 +258,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 21" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 22" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -257,7 +271,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 22" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 23" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -270,7 +284,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 23" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 24" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -283,7 +297,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 24" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 25" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -296,7 +310,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 25" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 26" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -309,7 +323,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 26" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 27" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -322,7 +336,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 27" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 28" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -335,7 +349,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 28" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 29" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -348,7 +362,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 29" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 30" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -361,7 +375,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 30" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 31" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -374,7 +388,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 31" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 32" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -387,7 +401,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 32" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 33" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -400,7 +414,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 33" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 34" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -413,7 +427,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 34" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 35" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -426,7 +440,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 35" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 36" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -439,7 +453,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 36" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 37" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -452,7 +466,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 37" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 38" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -465,7 +479,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 38" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 39" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -478,7 +492,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 39" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 40" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -491,7 +505,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 40" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 41" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -504,7 +518,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 41" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 42" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -517,7 +531,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 42" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 43" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -530,7 +544,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 43" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 44" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -543,7 +557,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 44" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 45" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -556,7 +570,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 45" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 46" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -569,7 +583,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 46" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 47" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -582,7 +596,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 47" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 48" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -595,7 +609,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 48" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 49" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -608,7 +622,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 49" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 50" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -621,7 +635,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 50" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 51" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -634,7 +648,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 51" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 52" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -647,7 +661,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 52" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 53" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -660,7 +674,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 53" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 54" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -673,7 +687,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 54" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 55" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -686,7 +700,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 55" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 56" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -699,7 +713,7 @@
         width="400px"
       />
     </div>
-    <div v-if="claseActual && claseActual.id === 56" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 57" class="flex flex-col items-center">
       <h3 class="text-xl font-bold mb-2 text-center">
         {{ claseActual.contenido }}
       </h3>
@@ -713,7 +727,7 @@
       />
     </div>
 
-    <div v-if="claseActual && claseActual.id === 57" class="flex flex-col items-center">
+    <div v-if="claseActual && claseActual.id === 58" class="flex flex-col items-center">
       <RouterLink to="/vista-ingeniero" class="flex flex-col items-center">
         <img
           src="../assets/iconos_inicio/icosaedro.png"
@@ -722,7 +736,7 @@
           height="200px"
           width="200px"
         />
-        <h3 class="text-xl font-bold mb-2 text-center">Al siguiente nivel</h3>
+        <h3 class="text-xl font-bold mb-2 text-center">Nivel completado</h3>
       </RouterLink>
     </div>
 
@@ -920,10 +934,17 @@ const clases = [
   {
     id: 57,
   },
+  {
+    id: 58,
+  },
 ];
 
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useNivelesStore } from '@/almacenamiento/Niveles.store';
+import { useRouter } from 'vue-router';
 
+const nivelStorage = useNivelesStore();
+const router = useRouter();
 const clasesArray = ref(clases);
 const claseActualId = ref(1);
 
@@ -931,8 +952,19 @@ const claseActual = computed(() => {
   return clasesArray.value.find((clase) => clase.id === claseActualId.value);
 });
 
+// Observa cambios en claseActual
+watch(claseActual, (newClase) => {
+  if (newClase && newClase.id === 58) {
+    // Redirige después de 10 segundos
+    nivelStorage.agregarNivel('Constructor');
+    setTimeout(() => {
+      router.push('/');
+    }, 5000);
+  }
+});
+
 const incrementarClase = () => {
-  if (claseActualId.value < 57) {
+  if (claseActualId.value < 58) {
     claseActualId.value += 1;
   }
 };

@@ -573,6 +573,9 @@ const clases = [
 
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { useNivelesStore } from '@/almacenamiento/Niveles.store';
+
+const nivelStorage = useNivelesStore();
 
 const clasesArray = ref(clases);
 const claseActualId = ref(1);
@@ -585,6 +588,7 @@ const claseActual = computed(() => {
 watch(claseActual, (newClase) => {
   if (newClase && newClase.id === 17) {
     // Redirige después de 10 segundos
+    nivelStorage.agregarNivel('Historia');
     setTimeout(() => {
       router.push('/');
     }, 10000);

@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { RouterView } from 'vue-router';
 import Tarjeta from './components/BuscarGrupo.vue';
-import { Eleccion, GrupoElegido } from './composables/store';
+import { Eleccion, GrupoElegido, Guardado } from './composables/store';
 
 const cambiarvalor = () => {
   Eleccion.value = !Eleccion.value;
@@ -12,6 +12,13 @@ const cambiarvalor = () => {
 const grupoSeleccionado = computed(() => {
   return GrupoElegido.value.length > 0 ? GrupoElegido.value[0] : null;
 });
+
+const GuardarAlumnos = () => {
+  Guardado.value = !Guardado.value;
+};
+
+const guardarAlumnos = computed(() => !Guardado.value);
+
 // Hacemos que Eleccion sea reactiva
 </script>
 
@@ -19,7 +26,7 @@ const grupoSeleccionado = computed(() => {
   <div id="app-container" class="flex h-screen">
     <!-- Sidebar -->
     <Tarjeta v-if="!Eleccion" />
-    <button @click="cambiarvalor">cambiar</button>
+
     <aside v-if="Eleccion" id="sidebar" class="sidebar">
       <div>
         <RouterLink to="/" class="flex flex-col items-center">
@@ -36,13 +43,16 @@ const grupoSeleccionado = computed(() => {
         </li>
       </ul>
 
-      <button id="save-button" class="save-button">Guardar</button>
+      <button v-if="guardarAlumnos" id="save-button" @click="GuardarAlumnos" class="save-button">
+        Guardar
+      </button>
+      <button v-if="guardarAlumnos" class="cambiar-button" @click="cambiarvalor">cambiar</button>
     </aside>
 
     <div v-if="Eleccion" id="main-content" class="flex flex-col flex-1 bg-main">
       <!-- Header -->
       <header id="header" class="header">
-        <h1 class="header-title">{{ grupoSeleccionado?.colegio }}</h1>
+        <h1 class="header-title">Colegio : {{ grupoSeleccionado?.colegio }}</h1>
         <hr class="header-divider" />
       </header>
 
@@ -114,6 +124,17 @@ const grupoSeleccionado = computed(() => {
   margin-top: 1rem; /* Margen superior */
   border: none; /* Sin borde */
   cursor: pointer; /* Cambiar cursor a mano */
+}
+
+.cambiar-button {
+  background-color: #2eb60f; /* Color de fondo naranja */
+  color: white; /* Color del texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  border-radius: 9999px; /* Bordes redondeados */
+  margin-top: 1rem; /* Margen superior */
+  border: none; /* Sin borde */
+  cursor: pointer;
 }
 
 .save-button:hover {
