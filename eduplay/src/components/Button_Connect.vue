@@ -1,11 +1,11 @@
 <template>
   <div class="main-container">
     <div id="indicaciones" v-if="!isConnected" class="text-center">
-      <h1 class="text-xl font-bold text-black rounded-lg shadow-md">
+      <h1 class="text-2xl font-bold text-black rounded-lg shadow-md">
         Conectemos el Helicóptero al tablet
       </h1>
 
-      <h2 class="text-l font-bold text-black p-1 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold text-black p-1 rounded-lg shadow-md">
         1. Presiona durante 5 segundos el botón superior de tu helicóptero como se muestra en la
         imagen que sigue:
       </h2>
@@ -16,7 +16,7 @@
         width="70px"
         alt="Motor encendido"
       />
-      <h2 class="text-l font-bold text-black p-1 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold text-black p-1 rounded-lg shadow-md">
         2. Activa el bluetooth del Tablet presionando el siguiente ícono:
       </h2>
       <img
@@ -26,7 +26,7 @@
         height="70px"
         alt="Bluetooth"
       />
-      <h2 class="text-l font-bold text-black rounded-lg">
+      <h2 class="text-xl font-bold text-black rounded-lg">
         Si se conectó a su modelo correctamente, debería mostrarse la siguiente pantalla
       </h2>
     </div>

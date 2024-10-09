@@ -86,11 +86,15 @@ const fetchCursosYGrupos = async () => {
 
   try {
     // Obtener cursos
-    const responseCursos = await axios.get('http://127.0.0.1:5000/cursos');
+    const responseCursos = await axios.get(
+      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/cursos',
+    );
     cursos.value = responseCursos.data;
 
     // Obtener grupos
-    const responseGrupos = await axios.get('http://127.0.0.1:5000/grupos');
+    const responseGrupos = await axios.get(
+      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/grupos',
+    );
     grupos.value = responseGrupos.data;
   } catch (err) {
     error.value = 'Error fetching cursos o grupos';

@@ -591,7 +591,7 @@ watch(claseActual, (newClase) => {
     nivelStorage.agregarNivel('Historia');
     setTimeout(() => {
       router.push('/');
-    }, 10000);
+    }, 5000);
   }
 });
 

@@ -27,12 +27,18 @@
         Tu navegador no soporta la reproducción de videos.
       </video>
     </div>
-    <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-start">
+    <div
+      v-if="claseActual && claseActual.id > 2 && claseActual.id <= 57"
+      class="flex flex-col items-start"
+    >
       <h1 class="text-2xl font-extrabold text-center text-white mb-1">
         Observa la imagen y utiliza las piezas indicadas
       </h1>
     </div>
-    <div v-if="claseActual && claseActual.id > 2" class="flex flex-col items-start w-full">
+    <div
+      v-if="claseActual && claseActual.id > 2 && claseActual.id <= 57"
+      class="flex flex-col items-start w-full"
+    >
       <h3 class="font-extrabold text-4xl text-black w-full ml-0">
         {{ claseActual?.id - 2 }}
       </h3>
@@ -190,7 +196,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="640px"
+        width="660px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 17" class="flex flex-col items-center">
@@ -229,7 +235,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="660px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 20" class="flex flex-col items-center">
@@ -242,7 +248,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="630px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 21" class="flex flex-col items-center">
@@ -255,7 +261,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="640px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 22" class="flex flex-col items-center">
@@ -268,7 +274,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="630px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 23" class="flex flex-col items-center">
@@ -281,7 +287,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="630px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 24" class="flex flex-col items-center">
@@ -294,7 +300,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="610px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 25" class="flex flex-col items-center">
@@ -307,7 +313,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 26" class="flex flex-col items-center">
@@ -320,7 +326,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 27" class="flex flex-col items-center">
@@ -333,7 +339,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 28" class="flex flex-col items-center">
@@ -346,7 +352,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 29" class="flex flex-col items-center">
@@ -359,7 +365,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 30" class="flex flex-col items-center">
@@ -372,7 +378,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="560px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 31" class="flex flex-col items-center">
@@ -385,7 +391,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="560px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 32" class="flex flex-col items-center">
@@ -398,7 +404,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="580px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 33" class="flex flex-col items-center">
@@ -411,7 +417,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="560px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 34" class="flex flex-col items-center">
@@ -424,7 +430,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="620px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 35" class="flex flex-col items-center">
@@ -437,7 +443,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="580px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 36" class="flex flex-col items-center">
@@ -450,7 +456,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="490px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 37" class="flex flex-col items-center">
@@ -463,7 +469,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="510px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 38" class="flex flex-col items-center">
@@ -476,7 +482,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="510px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 39" class="flex flex-col items-center">
@@ -489,7 +495,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="490px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 40" class="flex flex-col items-center">
@@ -502,7 +508,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="600px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 41" class="flex flex-col items-center">
@@ -515,7 +521,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="590px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 42" class="flex flex-col items-center">
@@ -528,7 +534,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="540px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 43" class="flex flex-col items-center">
@@ -541,7 +547,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="790px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 44" class="flex flex-col items-center">
@@ -554,7 +560,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="720px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 45" class="flex flex-col items-center">
@@ -567,7 +573,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="700px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 46" class="flex flex-col items-center">
@@ -580,7 +586,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="700px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 47" class="flex flex-col items-center">
@@ -593,7 +599,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="530px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 48" class="flex flex-col items-center">
@@ -606,7 +612,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="490px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 49" class="flex flex-col items-center">
@@ -619,7 +625,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="510px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 50" class="flex flex-col items-center">
@@ -632,7 +638,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="490px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 51" class="flex flex-col items-center">
@@ -645,7 +651,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="480px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 52" class="flex flex-col items-center">
@@ -658,7 +664,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="490px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 53" class="flex flex-col items-center">
@@ -671,7 +677,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="470px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 54" class="flex flex-col items-center">
@@ -684,7 +690,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="470px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 55" class="flex flex-col items-center">
@@ -697,7 +703,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="500px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 56" class="flex flex-col items-center">
@@ -710,7 +716,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="520px"
       />
     </div>
     <div v-if="claseActual && claseActual.id === 57" class="flex flex-col items-center">
@@ -723,7 +729,7 @@
         alt="Imagen 1"
         class="mb-4"
         height="400px"
-        width="400px"
+        width="570px"
       />
     </div>
 

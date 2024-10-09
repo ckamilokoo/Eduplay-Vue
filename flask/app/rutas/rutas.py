@@ -123,7 +123,7 @@ def eliminar_grupo(grupo_id):
 
 
 
-@main_bp.route('/registro', methods=['GET'])
+@main_bp.route('/', methods=['GET'])
 def registro():
     profesores = Profesor.query.all()
     cursos = Curso.query.all()  # Obtener la lista de cursos

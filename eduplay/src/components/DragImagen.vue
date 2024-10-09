@@ -66,6 +66,8 @@
 import { ref, watch } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
 import { useRouter } from 'vue-router';
+import { isConnected } from '../composables/store';
+
 const nivelStorage = useNivelesStore();
 const router = useRouter();
 
@@ -79,6 +81,7 @@ watch(isOrderCorrect, (correctorder) => {
   if (correctorder === true) {
     // Redirige después de 10 segundos
     nivelStorage.agregarNivel('Ingeniero');
+    isConnected.value = false;
     setTimeout(() => {
       router.push('/');
     }, 5000);
