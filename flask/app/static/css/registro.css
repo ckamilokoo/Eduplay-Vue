@@ -5,6 +5,11 @@ body {
   background-color: #f4f4f4;
 }
 
+.btn {
+  font-size: 14px;
+  border-radius: 10px;
+}
+
 .container {
   width: 90%;
   max-width: 1200px;
@@ -155,6 +160,7 @@ input[type="password"]:focus {
 
   .btn {
     font-size: 14px;
+    border-radius: 10px;
   }
 
   .flashes li {

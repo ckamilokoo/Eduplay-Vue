@@ -23,7 +23,7 @@
     </div>
 
     <div class="image-selection">
-      <button class="fun-button clearbutton" @click="clearImages">Limpiar Imágenes</button>
+      <button class="fun-button clearbutton" @click="clearImages">Limpiar Comandos</button>
       <button class="fun-button sendbutton" @click="sendCommands">Enviar Comandos</button>
       <div class="available-images">
         <img
@@ -65,11 +65,47 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
-import { useRouter } from 'vue-router';
-import { isConnected } from '../composables/store';
+
+import axios from 'axios';
+import { GrupoElegido, comandos } from '../composables/store';
+
+const progresoNuevo = ref('');
+
+const Actualizar_Progreso = async () => {
+  // Asegúrate de que haya un grupo seleccionado
+  if (GrupoElegido.value.length > 0) {
+    const grupo = GrupoElegido.value[0]; // Obtener el primer grupo seleccionado (ajustar si puede haber múltiples)
+
+    // Crear los datos que se enviarán a la API
+    const data = {
+      id: grupo.id,
+      nombre: grupo.nombre,
+      curso_id: grupo.curso_id,
+      progreso: progresoNuevo.value, // El nuevo valor de progreso que quieras asignar
+    };
+
+    try {
+      // Hacer la solicitud POST con axios
+      const response = await axios.post('http://localhost:8080/actualizar_progreso', data);
+
+      // Manejar la respuesta
+      console.log('Progreso actualizado correctamente:', response.data);
+    } catch (error) {
+      // Manejo del error: verificamos si es una instancia de AxiosError o un error de tipo genérico
+      if (axios.isAxiosError(error)) {
+        // Si es un error de axios, tenemos acceso a `error.response`
+        console.error('Error en la respuesta de Axios:', error.response?.data || error.message);
+      } else {
+        // Otros errores (por ejemplo, errores de red)
+        console.error('Error desconocido:', error);
+      }
+    }
+  } else {
+    console.error('No hay grupo seleccionado.');
+  }
+};
 
 const nivelStorage = useNivelesStore();
-const router = useRouter();
 
 const imagenes = ref([]);
 const draggin = ref(false);
@@ -81,10 +117,14 @@ watch(isOrderCorrect, (correctorder) => {
   if (correctorder === true) {
     // Redirige después de 10 segundos
     nivelStorage.agregarNivel('Ingeniero');
-    isConnected.value = false;
-    setTimeout(() => {
-      router.push('/');
-    }, 5000);
+
+    progresoNuevo.value = 'Ingeniero';
+    comandos.value = true;
+    Actualizar_Progreso();
+    // Actualizar progreso del grupo elegido
+    if (GrupoElegido.value && GrupoElegido.value.length > 0) {
+      GrupoElegido.value[0].progreso = ['Ingeniero'];
+    }
   }
 });
 
@@ -359,14 +399,15 @@ const handleDrop = (event) => {
 }
 
 .fun-button {
-  padding: 7px 12px;
-  font-size: 1rem;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  padding: 12px 20px; /* Aumentar el padding */
+  font-size: 25px; /* Aumentar el tamaño de fuente */
   border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 7px;
+  margin: 10px; /* Espaciado vertical entre los botones */
+  width: 150px; /* Puedes ajustar esto según tus necesidades */
+  min-width: 150px; /* Asegura que todos los botones tengan al menos este ancho */
 }
 
 .clearbutton {

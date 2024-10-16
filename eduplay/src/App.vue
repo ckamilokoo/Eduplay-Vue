@@ -30,10 +30,9 @@ const guardarAlumnos = computed(() => !Guardado.value);
     <aside v-if="Eleccion" id="sidebar" class="sidebar">
       <div>
         <RouterLink to="/" class="flex flex-col items-center">
-          <img alt="Vue logo" id="logo" src="@/assets/EDUPLAY.png" width="200" height="200" />
+          <img alt="Vue logo" id="logo" src="./assets/steamplay.png" />
         </RouterLink>
       </div>
-
       <h2 id="group-title" class="group-title">
         {{ grupoSeleccionado ? grupoSeleccionado.nombre : 'Grupo no seleccionado' }} 🌟
       </h2>
@@ -83,6 +82,8 @@ const guardarAlumnos = computed(() => !Guardado.value);
 
 #logo {
   margin-bottom: 1rem; /* Espacio debajo del logo */
+  height: 200px !important;
+  width: 300px !important;
 }
 
 .group-title {

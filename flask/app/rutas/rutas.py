@@ -52,11 +52,42 @@ def get_grupos():
             'id': grupo.id,
             'nombre': grupo.nombre,
             'curso_id': grupo.curso_id,
+            'progreso': grupo.progreso if grupo.progreso is not None else 'Sin progreso',
             'alumnos': [{'id': alumno.id, 'nombre': alumno.nombre} for alumno in grupo.alumnos]
         })
     
     # Devolver la lista de grupos como respuesta JSON
     return jsonify(grupos_list)
+
+@main_bp.route('/actualizar_progreso', methods=['POST'])
+def actualizar_progreso():
+    # Obtener los datos del request
+    data = request.get_json()
+
+    # Validar los parámetros
+    grupo_id = data.get('id')
+    nombre = data.get('nombre')
+    curso_id = data.get('curso_id')
+    progreso = data.get('progreso')
+
+    if not grupo_id or not nombre or not curso_id or not progreso:
+        return jsonify({"error": "Faltan parámetros necesarios"}), 400
+
+    # Buscar el grupo por ID
+    grupo = Grupo.query.filter_by(id=grupo_id, nombre=nombre, curso_id=curso_id).first()
+
+    if not grupo:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    # Actualizar el progreso del grupo
+    grupo.progreso = progreso
+
+    try:
+        db.session.commit()  # Guardar los cambios en la base de datos
+        return jsonify({"message": "Progreso actualizado correctamente"}), 200
+    except Exception as e:
+        db.session.rollback()  # Revertir en caso de error
+        return jsonify({"error": str(e)}), 500
 
 @main_bp.route('/cursos', methods=['GET'])
 def get_cursos():

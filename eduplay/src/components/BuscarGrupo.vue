@@ -1,7 +1,15 @@
 <template>
   <div class="flex items-center justify-center h-screen w-screen bg-container">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-      <table class="min-w-full bg-white border border-gray-300 mb-4">
+    <div class="mr-6">
+      <img
+        src="../assets/steamplay.png"
+        alt="Descripción de la imagen"
+        class="w-[300px] h-[300px] object-cover rounded-lg mr-10"
+      />
+    </div>
+    <div class="p-6 rounded-xl shadow-xl w-full max-w-[700px]">
+      <h1 class="text-2xl font-bold text-center mb-6">Bienvenido a STEAMPLAY 🧱</h1>
+      <table class="min-w-full w-[650px] bg-white border border-gray-300 mb-4">
         <thead>
           <tr class="bg-gray-200">
             <th class="py-2 px-4 border-b">Nombre</th>
@@ -29,7 +37,7 @@
       </table>
 
       <!-- Tabla de grupos filtrados -->
-      <table v-if="grupoSeleccionado" class="min-w-full bg-white border border-gray-300">
+      <table v-if="grupoSeleccionado" class="min-w-full w-[600px] bg-white border border-gray-300">
         <thead>
           <tr class="bg-gray-200">
             <th class="py-2 px-4 border-b">Nombre del Grupo</th>
@@ -86,16 +94,14 @@ const fetchCursosYGrupos = async () => {
 
   try {
     // Obtener cursos
-    const responseCursos = await axios.get(
-      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/cursos',
-    );
+    const responseCursos = await axios.get('http://127.0.0.1:8080/cursos');
     cursos.value = responseCursos.data;
 
     // Obtener grupos
-    const responseGrupos = await axios.get(
-      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/grupos',
-    );
+    const responseGrupos = await axios.get('http://127.0.0.1:8080/grupos');
+    console.log(responseGrupos.data);
     grupos.value = responseGrupos.data;
+    console.log('Valor de grupos:', grupos.value[0].progreso);
   } catch (err) {
     error.value = 'Error fetching cursos o grupos';
     console.error(error.value, err);
@@ -123,6 +129,7 @@ const elegirGrupo = (grupo: Grupo) => {
       curso_id: grupo.curso_id,
       colegio: curso ? curso.colegio : 'Colegio no encontrado', // Obtener el nombre del colegio
       alumnos: grupo.alumnos,
+      progreso: grupo.progreso,
     },
   ];
   console.log('Grupo elegido:', GrupoElegido.value); // Verificar en la consola

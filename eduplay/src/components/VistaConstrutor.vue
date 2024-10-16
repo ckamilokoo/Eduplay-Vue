@@ -23,7 +23,7 @@
     </div>
     <div v-if="claseActual && claseActual.id === 2" class="flex flex-col items-center">
       <video width="700" controls autoplay muted class="mt-1">
-        <source src="../assets/video/eduplayvideo.mp4" type="video/mp4" />
+        <source src="../assets/video/steamhelicoptero.mp4" type="video/mp4" />
         Tu navegador no soporta la reproducción de videos.
       </video>
     </div>
@@ -948,6 +948,8 @@ const clases = [
 import { ref, computed, watch } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
+import { GrupoElegido } from '../composables/store';
 
 const nivelStorage = useNivelesStore();
 const router = useRouter();
@@ -958,11 +960,54 @@ const claseActual = computed(() => {
   return clasesArray.value.find((clase) => clase.id === claseActualId.value);
 });
 
+const progresoNuevo = ref('');
+
+const Actualizar_Progreso = async () => {
+  // Asegúrate de que haya un grupo seleccionado
+  if (GrupoElegido.value.length > 0) {
+    const grupo = GrupoElegido.value[0]; // Obtener el primer grupo seleccionado (ajustar si puede haber múltiples)
+
+    // Crear los datos que se enviarán a la API
+    const data = {
+      id: grupo.id,
+      nombre: grupo.nombre,
+      curso_id: grupo.curso_id,
+      progreso: progresoNuevo.value, // El nuevo valor de progreso que quieras asignar
+    };
+
+    try {
+      // Hacer la solicitud POST con axios
+      const response = await axios.post('http://localhost:8080/actualizar_progreso', data);
+
+      // Manejar la respuesta
+      console.log('Progreso actualizado correctamente:', response.data);
+    } catch (error) {
+      // Manejo del error: verificamos si es una instancia de AxiosError o un error de tipo genérico
+      if (axios.isAxiosError(error)) {
+        // Si es un error de axios, tenemos acceso a `error.response`
+        console.error('Error en la respuesta de Axios:', error.response?.data || error.message);
+      } else {
+        // Otros errores (por ejemplo, errores de red)
+        console.error('Error desconocido:', error);
+      }
+    }
+  } else {
+    console.error('No hay grupo seleccionado.');
+  }
+};
+
 // Observa cambios en claseActual
 watch(claseActual, (newClase) => {
   if (newClase && newClase.id === 58) {
+    progresoNuevo.value = 'Constructor';
     // Redirige después de 10 segundos
     nivelStorage.agregarNivel('Constructor');
+    Actualizar_Progreso();
+    // Actualizar progreso del grupo elegido
+    if (GrupoElegido.value && GrupoElegido.value.length > 0) {
+      GrupoElegido.value[0].progreso = ['Constructor'];
+    }
+
     setTimeout(() => {
       router.push('/');
     }, 5000);

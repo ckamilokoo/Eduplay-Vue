@@ -207,6 +207,7 @@ contenido %}
             <th>Nombre del Grupo</th>
             <th>Curso ID</th>
             <th>Alumnos</th>
+            <th>Progreso</th>
             <th>Acciones</th>
             <!-- Nueva columna para las acciones -->
           </tr>
@@ -226,6 +227,11 @@ contenido %}
               </ul>
               {% else %} No hay alumnos asignados. {% endif %}
             </td>
+            <td>
+              {% if grupo.progreso is none %} Sin progreso {% else %} {{
+              grupo.progreso }} {% endif %}
+            </td>
+
             <td>
               <!-- Formulario para eliminar el grupo -->
               <form

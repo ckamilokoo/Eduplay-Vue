@@ -32,7 +32,8 @@ export interface Grupo {
   id: number;
   nombre: string;
   curso_id: number;
-  alumnos?: Alumno[]; // Opcional, ya que puede no tener alumnos al inicio
+  alumnos?: Alumno[];
+  progreso?: string[]; // Opcional, ya que puede no tener alumnos al inicio
 }
 
 export interface GrupoSeleccionado {
@@ -41,6 +42,7 @@ export interface GrupoSeleccionado {
   curso_id: number;
   alumnos?: Alumno[];
   colegio: string;
+  progreso?: string[];
 }
 
 export interface Nivel {

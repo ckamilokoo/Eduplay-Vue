@@ -65,11 +65,46 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, computed } from 'vue';
+import { watch } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
+import { GrupoElegido } from '../composables/store';
+
+console.log('grupo elegido final', GrupoElegido.value[0].progreso);
 
 const nivelStorage = useNivelesStore();
 
+const manejarProgreso = () => {
+  const progreso = GrupoElegido.value[0]?.progreso; // Aquí progreso es de tipo string[]
+
+  // Verificar el valor de progreso y llamar a la función correspondiente
+  if (!progreso || progreso.length === 0 || progreso.includes('Sin progreso')) {
+    console.log('No hay progreso o progreso está vacío.');
+    return; // Salir si no hay progreso
+  }
+
+  if (progreso.includes('Historia')) {
+    nivelStorage.agregarNivel('Historia');
+  }
+  if (progreso.includes('Constructor')) {
+    nivelStorage.agregarNivel('Historia'); // Agregar historia también
+    nivelStorage.agregarNivel('Constructor');
+  }
+  if (progreso.includes('Ingeniero')) {
+    nivelStorage.agregarNivel('Historia'); // Agregar historia también
+    nivelStorage.agregarNivel('Constructor');
+    nivelStorage.agregarNivel('Ingeniero');
+  }
+  if (progreso.includes('Presentacion')) {
+    nivelStorage.agregarNivel('Historia'); // Agregar historia también
+    nivelStorage.agregarNivel('Constructor');
+    nivelStorage.agregarNivel('Ingeniero');
+    nivelStorage.agregarNivel('Presentacion');
+  }
+
+  console.log('Progreso manejado con éxito.');
+};
+
+manejarProgreso();
 // Computa las clases de opacidad y deshabilitación en función del largo de niveles
 const getImageClass = (index: number) => {
   const length = nivelStorage.niveles.length;

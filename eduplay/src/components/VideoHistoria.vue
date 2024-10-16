@@ -574,6 +574,49 @@ const clases = [
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
+import axios from 'axios';
+import { GrupoElegido } from '../composables/store';
+console.log(GrupoElegido.value[0].id);
+console.log(GrupoElegido.value[0].curso_id);
+console.log(GrupoElegido.value[0].nombre);
+
+const progresoNuevo = ref('');
+
+const Actualizar_Progreso = async () => {
+  // Asegúrate de que haya un grupo seleccionado
+  if (GrupoElegido.value.length > 0) {
+    const grupo = GrupoElegido.value[0]; // Obtener el primer grupo seleccionado (ajustar si puede haber múltiples)
+
+    // Crear los datos que se enviarán a la API
+    const data = {
+      id: grupo.id,
+      nombre: grupo.nombre,
+      curso_id: grupo.curso_id,
+      progreso: progresoNuevo.value, // El nuevo valor de progreso que quieras asignar
+    };
+
+    try {
+      // Hacer la solicitud POST con axios
+      const response = await axios.post('http://localhost:8080/actualizar_progreso', data);
+
+      // Manejar la respuesta
+      console.log('Progreso actualizado correctamente:', response.data);
+    } catch (error) {
+      // Manejo del error: verificamos si es una instancia de AxiosError o un error de tipo genérico
+      if (axios.isAxiosError(error)) {
+        // Si es un error de axios, tenemos acceso a `error.response`
+        console.error('Error en la respuesta de Axios:', error.response?.data || error.message);
+      } else {
+        // Otros errores (por ejemplo, errores de red)
+        console.error('Error desconocido:', error);
+      }
+    }
+  } else {
+    console.error('No hay grupo seleccionado.');
+  }
+};
+
+// Función para agregar el progreso a la base de datos
 
 const nivelStorage = useNivelesStore();
 
@@ -587,8 +630,10 @@ const claseActual = computed(() => {
 // Observa cambios en claseActual
 watch(claseActual, (newClase) => {
   if (newClase && newClase.id === 17) {
+    progresoNuevo.value = 'Historia';
     // Redirige después de 10 segundos
     nivelStorage.agregarNivel('Historia');
+    Actualizar_Progreso();
     setTimeout(() => {
       router.push('/');
     }, 5000);

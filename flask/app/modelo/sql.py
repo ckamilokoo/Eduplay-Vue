@@ -28,3 +28,4 @@ class Grupo(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     curso_id = db.Column(db.Integer, db.ForeignKey('curso.id'), nullable=False)
     alumnos = db.relationship('Alumno', backref='grupo', lazy=True)
+    progreso = db.Column(db.String, nullable=True)

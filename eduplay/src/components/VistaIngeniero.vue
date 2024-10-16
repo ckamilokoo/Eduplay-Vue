@@ -13,9 +13,6 @@
                 Instrucciones
               </button>
               <ButtonConect />
-              <button id="show-modal-right" @click="comandos = true" class="comando-button">
-                Comandos
-              </button>
             </div>
             <!-- Ocupa el 80% -->
 
@@ -37,11 +34,8 @@
 
           <template #body>
             <h3 class="text-xl font-bold text-pink-500 mb-4 leading-relaxed">
-              Para rescatar a alguien de un incendio el canasto de nuestro helicóptero debe bajar,
-              detenerse, luego subir y volver a detenerse. Los recorridos de subida y bajada duran 5
-              segundos cada uno, entonces deben ser cuidadosos en no sobrepasar ese tiempo porque el
-              motor u otra pieza del helicóptero. Las flechas indican en que dirección se mueve el
-              canasto de rescate y los cuadrados rojos.
+              Para rescatar a alguien de un incendio el canasto de nuestro helicóptero debe bajar 2
+              veces, detenerse colocar una luz roja, luego cambiar a una luz verde y subir 2 veces .
             </h3>
             <h3 class="text-xl font-bold text-green-500 mb-4 leading-relaxed">
               Programa la secuencia correspondiente arrastrando los objetos a la línea de comandos.
@@ -54,10 +48,17 @@
         <!-- use the modal component, pass in the prop -->
         <modal :show="comandos" @close="comandos = false">
           <template #header>
-            <h3>El helicóptero debe ser funcional</h3>
+            <h3
+              class="text-2xl font-extrabold text-purple-500 bg-yellow-300 p-4 rounded-lg shadow-md mb-4"
+            >
+              Felicidades haz completado el nivel de Programemos ahora estas listo para presentarle
+              a tus demas compañer@s y profesor
+            </h3>
           </template>
           <template #body>
-            <h3>hola</h3>
+            <h3 class="text-xl font-bold text-green-500 mb-4 leading-relaxed">
+              MUY bien hecho Equipo
+            </h3>
           </template>
         </modal>
       </Teleport>
@@ -68,13 +69,12 @@
 <script setup>
 import DropImagen from '@/components/DragImagen.vue';
 import ButtonConect from '@/components/Button_Connect.vue';
-import { isConnected } from '../composables/store';
+import { isConnected, comandos } from '../composables/store';
 import Modal from './Modal_instrucciones.vue';
 
 import { ref } from 'vue';
 
 const Instrucciones = ref(false);
-const comandos = ref(false);
 </script>
 
 <style scoped>
