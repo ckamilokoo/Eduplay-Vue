@@ -27,42 +27,28 @@
       <button class="fun-button sendbutton" @click="sendCommands">Enviar Comandos</button>
       <div class="available-images">
         <img
-          src="/src/assets/comandos/celeste.png"
+          :src="celeste"
           class="selectable-image"
           img="/src/assets/comandos/celeste.png"
-          @click="selectImage('/src/assets/comandos/celeste.png')"
+          @click="selectImage(celeste)"
         />
-        <img
-          src="/src/assets/comandos/naranja.png"
-          class="selectable-image"
-          @click="selectImage('/src/assets/comandos/naranja.png')"
-        />
-        <img
-          src="/src/assets/comandos/rojo.png"
-          class="selectable-image"
-          @click="selectImage('/src/assets/comandos/rojo.png')"
-        />
-        <img
-          src="/src/assets/comandos/verde.png"
-          class="selectable-image"
-          @click="selectImage('/src/assets/comandos/verde.png')"
-        />
-        <img
-          src="/src/assets/comandos/izquierda.png"
-          class="selectable-image"
-          @click="selectImage('/src/assets/comandos/izquierda.png')"
-        />
-        <img
-          src="/src/assets/comandos/derecha.png"
-          class="selectable-image"
-          @click="selectImage('/src/assets/comandos/derecha.png')"
-        />
+        <img :src="naranja" class="selectable-image" @click="selectImage(naranja)" />
+        <img :src="rojo" class="selectable-image" @click="selectImage(rojo)" />
+        <img :src="verde" class="selectable-image" @click="selectImage(verde)" />
+        <img :src="izquierda" class="selectable-image" @click="selectImage(izquierda)" />
+        <img :src="derecha" class="selectable-image" @click="selectImage(derecha)" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import celeste from '@/assets/comandos/celeste.png';
+import naranja from '@/assets/comandos/naranja.png';
+import rojo from '@/assets/comandos/rojo.png';
+import verde from '@/assets/comandos/verde.png';
+import izquierda from '@/assets/comandos/izquierda.png';
+import derecha from '@/assets/comandos/derecha.png';
 import { ref, watch } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
 
@@ -86,7 +72,10 @@ const Actualizar_Progreso = async () => {
 
     try {
       // Hacer la solicitud POST con axios
-      const response = await axios.post('http://localhost:8080/actualizar_progreso', data);
+      const response = await axios.post(
+        'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/actualizar_progreso',
+        data,
+      );
 
       // Manejar la respuesta
       console.log('Progreso actualizado correctamente:', response.data);
@@ -128,14 +117,7 @@ watch(isOrderCorrect, (correctorder) => {
   }
 });
 
-const expectedOrder = [
-  '/src/assets/comandos/derecha.png',
-  '/src/assets/comandos/derecha.png',
-  '/src/assets/comandos/rojo.png',
-  '/src/assets/comandos/verde.png',
-  '/src/assets/comandos/izquierda.png',
-  '/src/assets/comandos/izquierda.png',
-];
+const expectedOrder = [derecha, derecha, rojo, verde, izquierda, izquierda];
 
 // Función para verificar si el orden de los comandos es correcto
 const checkCommandOrder = (sentCommands) => {
@@ -192,21 +174,20 @@ const runMotorForTime = async (command, duration) => {
 
 // Mapear imágenes a comandos de colores y motores
 const colorMap = {
-  '/src/assets/comandos/celeste.png': new Uint8Array([0x06, 0x04, 0x01, 0x03]),
-  '/src/assets/comandos/rojo.png': new Uint8Array([0x06, 0x04, 0x01, 0x09]),
-  '/src/assets/comandos/verde.png': new Uint8Array([0x06, 0x04, 0x01, 0x06]),
-  '/src/assets/comandos/naranja.png': new Uint8Array([0x06, 0x04, 0x01, 0x08]),
-  '/src/assets/comandos/off.png': new Uint8Array([0x06, 0x04, 0x01, 0x00]), // Apagar
+  [celeste]: new Uint8Array([0x06, 0x04, 0x01, 0x03]),
+  [rojo]: new Uint8Array([0x06, 0x04, 0x01, 0x09]),
+  [verde]: new Uint8Array([0x06, 0x04, 0x01, 0x06]),
+  [naranja]: new Uint8Array([0x06, 0x04, 0x01, 0x08]),
 };
 
 // Usar la función `runMotorForTime` para controlar la duración del motor
 const motorMap = {
-  '/src/assets/comandos/izquierda.png': async () => {
+  [izquierda]: async () => {
     const command = getMotorCommand(-50); // Velocidad menor (-50)
     const duration = 700; // Duración en milisegundos para dos giros
     await runMotorForTime(command, duration);
   },
-  '/src/assets/comandos/derecha.png': async () => {
+  [derecha]: async () => {
     const command = getMotorCommand(50); // Velocidad menor (50)
     const duration = 700; // Duración en milisegundos para dos giros
     await runMotorForTime(command, duration);

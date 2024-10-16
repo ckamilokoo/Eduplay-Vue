@@ -10,10 +10,10 @@
         imagen que sigue:
       </h2>
       <img
-        src="../assets/motor_encendido.png"
+        src="../assets/hub.png"
         class="mx-auto"
-        height="70px"
-        width="70px"
+        height="90px"
+        width="90px"
         alt="Motor encendido"
       />
       <h2 class="text-xl font-bold text-black p-1 rounded-lg shadow-md">

@@ -597,7 +597,10 @@ const Actualizar_Progreso = async () => {
 
     try {
       // Hacer la solicitud POST con axios
-      const response = await axios.post('http://localhost:8080/actualizar_progreso', data);
+      const response = await axios.post(
+        'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/actualizar_progreso',
+        data,
+      );
 
       // Manejar la respuesta
       console.log('Progreso actualizado correctamente:', response.data);
