@@ -26,11 +26,10 @@ def crear_grupos(curso_id, tamano_grupo):
         grupos.append(grupo)
 
     # Crear y guardar los grupos en la base de datos
+    curso = Curso.query.get(curso_id)  # Obtener el curso correspondiente
     for index, grupo in enumerate(grupos):
-        nuevo_grupo = Grupo(nombre=f'Grupo {index + 1}', curso_id=curso_id)
-        db.session.add(nuevo_grupo)
-        db.session.commit()  # Guardar el grupo en la base de datos
-
+        nuevo_grupo = Grupo.create_with_course(nombre=f'Grupo {index + 1}', curso=curso)
+        
         # Asignar el grupo a los alumnos
         for alumno in grupo:
             alumno.grupo_id = nuevo_grupo.id  # Asignar el grupo al alumno
@@ -38,6 +37,7 @@ def crear_grupos(curso_id, tamano_grupo):
 
     flash('Grupos creados exitosamente.', 'success')
     return redirect(url_for('main.registro'))
+
 
 
 @main_bp.route('/grupos', methods=['GET'])
@@ -70,8 +70,20 @@ def actualizar_progreso():
     curso_id = data.get('curso_id')
     progreso = data.get('progreso')
 
+    # Mapear los niveles de progreso a valores numéricos para facilitar la comparación
+    niveles = {
+        'Historia': 1,
+        'Constructor': 2,
+        'Ingeniero': 3,
+        'Presentemos': 4
+    }
+
     if not grupo_id or not nombre or not curso_id or not progreso:
         return jsonify({"error": "Faltan parámetros necesarios"}), 400
+
+    # Verificar que el progreso ingresado es válido
+    if progreso not in niveles:
+        return jsonify({"error": "Nivel de progreso inválido"}), 400
 
     # Buscar el grupo por ID
     grupo = Grupo.query.filter_by(id=grupo_id, nombre=nombre, curso_id=curso_id).first()
@@ -79,7 +91,14 @@ def actualizar_progreso():
     if not grupo:
         return jsonify({"error": "Grupo no encontrado"}), 404
 
-    # Actualizar el progreso del grupo
+    # Obtener el progreso actual del grupo
+    progreso_actual = grupo.progreso if grupo.progreso else 'Sin progreso'
+    
+    # Comparar el nivel actual con el nivel solicitado para actualizar
+    if niveles[progreso] <= niveles[progreso_actual]:
+        return jsonify({"error": f"El progreso no puede ser reducido o igual. Progreso actual: {progreso_actual}"}), 400
+
+    # Actualizar el progreso del grupo solo si es mayor
     grupo.progreso = progreso
 
     try:
@@ -88,6 +107,7 @@ def actualizar_progreso():
     except Exception as e:
         db.session.rollback()  # Revertir en caso de error
         return jsonify({"error": str(e)}), 500
+
 
 @main_bp.route('/cursos', methods=['GET'])
 def get_cursos():

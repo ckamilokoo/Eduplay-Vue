@@ -193,7 +193,7 @@ contenido %}
           action="{{ url_for('main.crear_grupos', curso_id=curso.id, tamano_grupo=4) }}"
           method="POST"
         >
-          <button type="submit" class="btn">
+          <button type="submit" class="btn2">
             Crear Grupos de 4 para {{ curso.nombre }}
           </button>
         </form>
@@ -205,6 +205,7 @@ contenido %}
           <tr>
             <th>ID</th>
             <th>Nombre del Grupo</th>
+            <th>Colegio</th>
             <th>Curso ID</th>
             <th>Alumnos</th>
             <th>Progreso</th>
@@ -218,6 +219,8 @@ contenido %}
             <td>{{ grupo.id }}</td>
             <td>{{ grupo.nombre }}</td>
             <td>{{ grupo.curso_id }}</td>
+            <td>{{ grupo.colegio }}</td>
+
             <td>
               {% if grupo.alumnos %}
               <ul>
