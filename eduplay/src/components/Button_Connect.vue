@@ -12,25 +12,37 @@
       <img
         src="../assets/hub.png"
         class="mx-auto"
-        height="90px"
-        width="90px"
+        height="300px"
+        width="300px"
         alt="Motor encendido"
       />
-      <h2 class="text-xl font-bold text-black p-1 rounded-lg shadow-md">
-        2. Activa el bluetooth del Tablet presionando el siguiente ícono:
-      </h2>
-      <img
-        src="../assets/bluethooth.png"
-        class="mx-auto"
-        width="70px"
-        height="70px"
-        alt="Bluetooth"
-      />
-      <h2 class="text-xl font-bold text-black rounded-lg">
-        Si se conectó a su modelo correctamente, debería mostrarse la siguiente pantalla
-      </h2>
+      <button id="show-modal-left" @click="Instrucciones = true" class="instruccion-button">
+        Problemas de conexion
+      </button>
     </div>
+    <Teleport to="body">
+      <!-- use the modal component, pass in the prop -->
+      <modal :show="Instrucciones" @close="Instrucciones = false">
+        <template #header>
+          <h2 class="text-xl font-bold text-black p-1 rounded-lg shadow-md">
+            2. Activa el bluetooth del Tablet presionando el siguiente ícono:
+          </h2>
+          <img
+            src="../assets/bluethooth.png"
+            class="mx-auto"
+            width="70px"
+            height="70px"
+            alt="Bluetooth"
+          />
+        </template>
 
+        <template #body>
+          <h2 class="text-xl font-bold text-black rounded-lg">
+            Si se conectó a su modelo correctamente, debería mostrarse la siguiente pantalla
+          </h2>
+        </template>
+      </modal>
+    </Teleport>
     <!-- Aquí se añadió la clase mt-12 para bajar el contenedor -->
     <div :class="['button-container', { centered: !isConnected }]">
       <button
@@ -61,6 +73,9 @@
 <script setup>
 import { ref } from 'vue';
 import { isConnected } from '../composables/store'; // Importar el estado global
+import Modal from './Modal_instrucciones.vue';
+
+const Instrucciones = ref(false);
 
 const isLoading = ref(false);
 
@@ -144,6 +159,16 @@ const disconnectFromWeDo = async () => {
 </script>
 
 <style scoped>
+.instruccion-button {
+  background-color: rgb(220, 16, 16);
+  font-weight: bold;
+  padding: 10px 20px; /* tamaño de botón por defecto */
+  border-radius: 9999px; /* redondear los botones */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-size: 1.5rem; /* Color específico para Instrucciones */
+}
+
 .main-container {
   display: flex;
   justify-content: space-between;

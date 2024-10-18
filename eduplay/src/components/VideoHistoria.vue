@@ -382,7 +382,7 @@
           class="mr-2 mb-4 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-contain"
         />
 
-        <h3 class="w-full text-l font-bold mb-2 text-center">
+        <h3 class="w-full text-xl font-bold mb-2 text-center">
           {{ claseActual.contenido }}
         </h3>
       </div>
@@ -437,11 +437,11 @@
     <div v-if="claseActual && claseActual.id === 17" class="flex flex-col items-center">
       <RouterLink to="/vista-construtor" class="flex flex-col items-center">
         <img
-          src="../assets/iconos_inicio/icosaedro.png"
+          src="../assets/celebracion.png"
           alt="Esfera"
           class="mb-4"
-          height="200px"
-          width="200px"
+          height="400px"
+          width="400px"
         />
         <h3 class="text-xl font-bold mb-2 text-center">Nivel Completado</h3>
       </RouterLink>
@@ -597,10 +597,7 @@ const Actualizar_Progreso = async () => {
 
     try {
       // Hacer la solicitud POST con axios
-      const response = await axios.post(
-        'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/actualizar_progreso',
-        data,
-      );
+      const response = await axios.post('http://127.0.0.1:8080/actualizar_progreso', data);
 
       // Manejar la respuesta
       console.log('Progreso actualizado correctamente:', response.data);

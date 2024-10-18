@@ -160,7 +160,7 @@ const guardarAlumnos = computed(() => !Guardado.value);
   text-align: center; /* Centrar texto */
   font-size: 2rem; /* Tamaño de fuente */
   font-weight: 800; /* Fuente extra negrita */
-  color: #4caf50; /* Color verde */
+  color: #010b10; /* Color verde */
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra de texto */
 }
 

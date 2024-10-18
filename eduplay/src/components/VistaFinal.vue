@@ -30,7 +30,7 @@
   display: flex; /* Hacer un contenedor flex */
   justify-content: space-between; /* Espacio entre contenido y imagen */
   align-items: flex-start; /* Alinear elementos en la parte superior */
-  max-width: 800px; /* Limitar ancho total del contenedor */
+  max-width: 1000px; /* Limitar ancho total del contenedor */
   margin: 0 auto; /* Centrar el contenedor principal */
 }
 
@@ -40,15 +40,15 @@
   background-color: #ebf8ff; /* Color de fondo similar a bg-blue-100 */
   border-radius: 10px; /* Bordes redondeados */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra para el contenedor */
-  width: 700px; /* Ancho relativo del contenedor de texto */
+  width: 600px; /* Ancho relativo del contenedor de texto */
   text-align: center; /* Centrar en la página */
   margin-right: 20px;
 }
 
 /* Estilo para la imagen */
 .presentemos-image {
-  width: 270px; /* Ancho relativo para la imagen */
-  height: 400px;
+  width: 400px; /* Ancho relativo para la imagen */
+  height: 480px;
   /* Bordes redondeados */
 }
 

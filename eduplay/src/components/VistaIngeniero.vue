@@ -3,21 +3,28 @@
     <div class="toy-border">
       <div class="toy-content">
         <h1 class="playground-title"></h1>
+
         <div v-if="!isConnected" class="connect-container">
           <ButtonConect />
         </div>
+
         <div v-else class="flex">
           <div class="w-5/5">
             <div class="flex justify-between mb-3">
               <button id="show-modal-left" @click="Instrucciones = true" class="instruccion-button">
                 Instrucciones
               </button>
+
+              <RouterLink to="/vista-final" class="flex flex-col items-center">
+                <button :hidden="!boton" class="avanzar-button">Avance al siguiente Nivel</button>
+              </RouterLink>
               <ButtonConect />
             </div>
             <!-- Ocupa el 80% -->
 
             <DropImagen />
           </div>
+          <div class="boton-container"></div>
         </div>
       </div>
 
@@ -69,7 +76,7 @@
 <script setup>
 import DropImagen from '@/components/DragImagen.vue';
 import ButtonConect from '@/components/Button_Connect.vue';
-import { isConnected, comandos } from '../composables/store';
+import { isConnected, comandos, boton } from '../composables/store';
 import Modal from './Modal_instrucciones.vue';
 
 import { ref } from 'vue';
@@ -78,6 +85,19 @@ const Instrucciones = ref(false);
 </script>
 
 <style scoped>
+.boton-container {
+  text-align: center; /* Centra el contenido del contenedor */
+  margin-top: 20px; /* Espacio adicional si es necesario */
+}
+.avanzar-button {
+  background-color: #0f95b6;
+  font-weight: bold;
+  padding: 10px 20px; /* tamaño de botón por defecto */
+  border-radius: 9999px; /* redondear los botones */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-size: 1.5rem; /* Color específico para Instrucciones */
+}
 .container {
   display: flex;
   flex-direction: column;

@@ -94,18 +94,13 @@ const fetchCursosYGrupos = async () => {
 
   try {
     // Obtener cursos
-    const responseCursos = await axios.get(
-      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/cursos',
-    );
+    const responseCursos = await axios.get('http://127.0.0.1:8080/cursos');
     cursos.value = responseCursos.data;
 
     // Obtener grupos
-    const responseGrupos = await axios.get(
-      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/grupos',
-    );
+    const responseGrupos = await axios.get('http://127.0.0.1:8080/grupos');
     console.log(responseGrupos.data);
     grupos.value = responseGrupos.data;
-    console.log('Valor de grupos:', grupos.value[0].progreso);
   } catch (err) {
     error.value = 'Error fetching cursos o grupos';
     console.error(error.value, err);

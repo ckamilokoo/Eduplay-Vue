@@ -72,10 +72,11 @@ def actualizar_progreso():
 
     # Mapear los niveles de progreso a valores numéricos para facilitar la comparación
     niveles = {
-        'Historia': 1,
-        'Constructor': 2,
-        'Ingeniero': 3,
-        'Presentemos': 4
+        'Sin progreso':1,
+        'Historia': 2,
+        'Constructor': 3,
+        'Ingeniero': 4,
+        'Presentemos': 5
     }
 
     if not grupo_id or not nombre or not curso_id or not progreso:

@@ -17,3 +17,4 @@ export const Guardado = ref(false);
 export const grupos = ref<Grupo[]>([]);
 
 export const comandos = ref(false);
+export const boton = ref(false);

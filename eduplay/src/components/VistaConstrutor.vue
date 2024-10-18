@@ -736,11 +736,11 @@
     <div v-if="claseActual && claseActual.id === 58" class="flex flex-col items-center">
       <RouterLink to="/vista-ingeniero" class="flex flex-col items-center">
         <img
-          src="../assets/iconos_inicio/icosaedro.png"
+          src="../assets/celebracion.png"
           alt="Esfera"
           class="mb-4"
-          height="200px"
-          width="200px"
+          height="400px"
+          width="400px"
         />
         <h3 class="text-xl font-bold mb-2 text-center">Nivel completado</h3>
       </RouterLink>

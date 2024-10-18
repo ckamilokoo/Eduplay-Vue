@@ -53,7 +53,7 @@ import { ref, watch } from 'vue';
 import { useNivelesStore } from '@/almacenamiento/Niveles.store';
 
 import axios from 'axios';
-import { GrupoElegido, comandos } from '../composables/store';
+import { GrupoElegido, comandos, boton } from '../composables/store';
 
 const progresoNuevo = ref('');
 
@@ -98,7 +98,7 @@ const nivelStorage = useNivelesStore();
 
 const imagenes = ref([]);
 const draggin = ref(false);
-const maxImages = 7;
+const maxImages = 9;
 const isOrderCorrect = ref(false);
 
 // Observa cambios en claseActual
@@ -109,6 +109,8 @@ watch(isOrderCorrect, (correctorder) => {
 
     progresoNuevo.value = 'Ingeniero';
     comandos.value = true;
+    boton.value = true;
+    console.log(boton);
     Actualizar_Progreso();
     // Actualizar progreso del grupo elegido
     if (GrupoElegido.value && GrupoElegido.value.length > 0) {
@@ -117,13 +119,13 @@ watch(isOrderCorrect, (correctorder) => {
   }
 });
 
-const expectedOrder = [derecha, derecha, rojo, verde, izquierda, izquierda];
+const expectedOrder = [rojo, derecha, derecha, derecha, verde, izquierda, izquierda, izquierda];
 
 // Función para verificar si el orden de los comandos es correcto
 const checkCommandOrder = (sentCommands) => {
   // Crear un arreglo con los comandos enviados en el mismo orden
   const sentImages = sentCommands;
-
+  console.log(sentImages);
   // Comparar el orden de comandos enviados con el orden esperado
   const isCorrectOrder = sentImages.every((img, index) => img === expectedOrder[index]);
 
