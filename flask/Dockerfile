@@ -12,11 +12,12 @@ WORKDIR /usr/app/src
 
 # Copiar los archivos necesarios al contenedor
 COPY requirements.txt ./
-COPY app/ ./app/
-COPY main.py ./
+COPY app ./app  
+COPY main.py ./  
 
 # Instalar las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Comando para ejecutar la aplicación
-CMD ["python", "main.py"]
+CMD ["python", "-m", "main"]
+
