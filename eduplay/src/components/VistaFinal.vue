@@ -18,7 +18,10 @@
       </h2>
       <h2 class="subtitle">6. Muestra la foto que se tomaron con el equipo.</h2>
     </div>
-    <img class="presentemos-image" src="../assets/presentemos.jpg" alt="Equipo Presentemos" />
+    <div class="image-container">
+      <img class="presentemos-image" src="../assets/presentemos.jpg" alt="Equipo Presentemos" />
+      <button class="colorful-button">Terminar</button>
+    </div>
   </div>
 </template>
 
@@ -28,7 +31,7 @@
 /* Contenedor principal para alinear el contenido y la imagen */
 .main-container {
   display: flex; /* Hacer un contenedor flex */
-  justify-content: space-between; /* Espacio entre contenido y imagen */
+  justify-content: space-between; /* Espacio entre contenido y la imagen */
   align-items: flex-start; /* Alinear elementos en la parte superior */
   max-width: 1000px; /* Limitar ancho total del contenedor */
   margin: 0 auto; /* Centrar el contenedor principal */
@@ -42,14 +45,40 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra para el contenedor */
   width: 600px; /* Ancho relativo del contenedor de texto */
   text-align: center; /* Centrar en la página */
-  margin-right: 20px;
+  margin-right: 20px; /* Espacio entre contenedor de texto y la imagen */
+}
+
+/* Estilo para el contenedor de la imagen y el botón */
+.image-container {
+  display: flex;
+  flex-direction: column; /* Alinear la imagen y el botón en columna */
+  align-items: center; /* Centrar la imagen y el botón */
 }
 
 /* Estilo para la imagen */
 .presentemos-image {
   width: 400px; /* Ancho relativo para la imagen */
-  height: 480px;
-  /* Bordes redondeados */
+  height: 480px; /* Alto relativo para la imagen */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo para el botón colorido */
+.colorful-button {
+  background-color: #ff6f61; /* Color de fondo vibrante */
+  color: white; /* Color del texto */
+  padding: 12px 24px; /* Tamaño del botón */
+  border: none; /* Sin borde */
+  border-radius: 9999px; /* Bordes redondeados */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 1.25rem; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición para el color de fondo */
+  margin-top: 16px; /* Espacio entre la imagen y el botón */
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+.colorful-button:hover {
+  background-color: #ff3e30; /* Color más oscuro al pasar el ratón */
 }
 
 /* Estilo para el título principal */
