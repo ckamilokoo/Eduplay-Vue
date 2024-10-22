@@ -51,7 +51,8 @@ const guardarAlumnos = computed(() => !Guardado.value);
     <div v-if="Eleccion" id="main-content" class="flex flex-col flex-1 bg-main">
       <!-- Header -->
       <header id="header" class="header">
-        <h1 class="header-title">Colegio : {{ grupoSeleccionado?.colegio }}</h1>
+        <h1 class="header-title">Colegio: {{ grupoSeleccionado?.colegio }}</h1>
+        <img src="./assets/logo colegio.jpeg" alt="Logo del colegio" width="100px" height="100px" />
         <hr class="header-divider" />
       </header>
 
@@ -149,23 +150,30 @@ const guardarAlumnos = computed(() => !Guardado.value);
 
 .header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 5rem; /* Altura del encabezado */
+  align-items: center; /* Alinea verticalmente los elementos */
   padding: 0 1rem; /* Espaciado interno */
+  height: 5rem; /* Altura del encabezado */
   border-bottom: 2px solid orange; /* Borde inferior */
 }
 
 .header-title {
-  text-align: center; /* Centrar texto */
+  margin-right: 1rem; /* Espacio entre el texto y la imagen */
   font-size: 2rem; /* Tamaño de fuente */
   font-weight: 800; /* Fuente extra negrita */
   color: #010b10; /* Color verde */
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra de texto */
 }
 
+.header img {
+  flex-shrink: 0; /* Evita que la imagen se reduzca de tamaño */
+  width: 130px; /* Ancho de la imagen */
+  height: 70px; /* Altura de la imagen */
+}
+
 .header-divider {
-  margin: 0.5rem 0; /* Margen superior e inferior */
+  margin-top: 0.5rem; /* Margen superior */
+  width: 70px; /* Asegura que el divisor ocupe todo el ancho */
+  height: 70px;
 }
 
 .main-content {

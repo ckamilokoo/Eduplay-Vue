@@ -34,6 +34,11 @@ const routes = [
     name: 'vistaFinal',
     component: () => import('../components/VistaFinal.vue'),
   },
+  {
+    path: '/siguiente-proyecto',
+    name: 'siguienteproyecto',
+    component: () => import('../components/SiguienteProyecto.vue'),
+  },
 ];
 
 const router = createRouter({

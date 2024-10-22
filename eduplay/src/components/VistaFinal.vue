@@ -20,7 +20,9 @@
     </div>
     <div class="image-container">
       <img class="presentemos-image" src="../assets/presentemos.jpg" alt="Equipo Presentemos" />
-      <button class="colorful-button">Terminar</button>
+      <router-link to="/siguiente-proyecto"
+        ><button class="colorful-button">Terminar</button></router-link
+      >
     </div>
   </div>
 </template>
