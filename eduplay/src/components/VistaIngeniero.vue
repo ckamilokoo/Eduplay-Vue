@@ -41,8 +41,8 @@
 
           <template #body>
             <h3 class="text-xl font-bold text-pink-500 mb-4 leading-relaxed">
-              Para rescatar a alguien de un incendio el canasto de nuestro helicóptero debe bajar 2
-              veces, detenerse colocar una luz roja, luego cambiar a una luz verde y subir 2 veces .
+              Para rescatar a alguien de un incendio el canasto de nuestro helicóptero debe colocar
+              una luz roja depues bajar 3 veces , despues colocar una luz verde y subir 3 veces.
             </h3>
             <h3 class="text-xl font-bold text-green-500 mb-4 leading-relaxed">
               Programa la secuencia correspondiente arrastrando los objetos a la línea de comandos.
