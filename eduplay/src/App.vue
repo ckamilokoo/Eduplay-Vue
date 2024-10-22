@@ -52,7 +52,7 @@ const guardarAlumnos = computed(() => !Guardado.value);
       <!-- Header -->
       <header id="header" class="header">
         <h1 class="header-title">Colegio: {{ grupoSeleccionado?.colegio }}</h1>
-        <img src="./assets/logo colegio.jpeg" alt="Logo del colegio" width="100px" height="100px" />
+        <img src="./assets/Logo-pag.png" alt="Logo del colegio" width="190px" height="140px" />
         <hr class="header-divider" />
       </header>
 
@@ -166,7 +166,7 @@ const guardarAlumnos = computed(() => !Guardado.value);
 
 .header img {
   flex-shrink: 0; /* Evita que la imagen se reduzca de tamaño */
-  width: 130px; /* Ancho de la imagen */
+  width: 210px; /* Ancho de la imagen */
   height: 70px; /* Altura de la imagen */
 }
 
