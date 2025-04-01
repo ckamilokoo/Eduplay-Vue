@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { GrupoElegido } from '../composables/store';
 import { type Curso, type Grupo } from '../interfaces/modelos';
 import axios from 'axios';
@@ -94,11 +94,11 @@ const fetchCursosYGrupos = async () => {
 
   try {
     // Obtener cursos
-    const responseCursos = await axios.get('https://paneladmin-a67gr1hs.b4a.run/cursos');
+    const responseCursos = await axios.get('http://127.0.0.1:8080/cursos');
     cursos.value = responseCursos.data;
 
     // Obtener grupos
-    const responseGrupos = await axios.get('https://paneladmin-a67gr1hs.b4a.run/grupos');
+    const responseGrupos = await axios.get('http://127.0.0.1:8080/grupos');
     console.log(responseGrupos.data);
     grupos.value = responseGrupos.data;
   } catch (err) {
@@ -135,8 +135,8 @@ const elegirGrupo = (grupo: Grupo) => {
   Eleccion.value = !Eleccion.value;
 };
 
-// Llamar la función cuando sea necesario, por ejemplo en el montaje del componente
 fetchCursosYGrupos();
+// Llamar la función cuando sea necesario, por ejemplo en el montaje del componente
 </script>
 
 <style scoped>

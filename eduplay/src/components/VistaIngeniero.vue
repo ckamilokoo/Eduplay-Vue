@@ -16,7 +16,9 @@
               </button>
 
               <RouterLink to="/vista-final" class="flex flex-col items-center">
-                <button :hidden="!boton" class="avanzar-button">Avance al siguiente Nivel</button>
+                <button @click="isConnected = false" :hidden="!boton" class="avanzar-button">
+                  Avance al siguiente Nivel
+                </button>
               </RouterLink>
               <ButtonConect />
             </div>

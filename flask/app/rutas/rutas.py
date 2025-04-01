@@ -10,16 +10,17 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def registro():
+    
     # Consultas a Supabase
     profesores = supabase.table('profesor').select('*').execute().data
-    print("profesores :", profesores)
+    #print("profesores :", profesores)
     
     cursos = supabase.table('curso').select('*').execute().data
-    print("cursos:", cursos)
+    #print("cursos:", cursos)
     
     # Obtener los alumnos y agruparlos por grupo_id
     alumnos = supabase.table('alumno').select('*').execute().data
-    print("alumnos :", alumnos)
+    #print("alumnos :", alumnos)
     
     # Agrupar los alumnos por grupo_id
     grupos_alumnos = {}
@@ -31,7 +32,7 @@ def registro():
     
     # Consultar los grupos
     grupos = supabase.table('grupo').select('*').execute().data
-    print("grupos :", grupos)
+    #print("grupos :", grupos)
     
     # Asociar los alumnos a cada grupo
     for grupo in grupos:
@@ -46,26 +47,83 @@ def registro():
     )
 
 
+@main_bp.route('/cursos', methods=['GET'])
+def get_cursos():
+    # Obtener todos los cursos desde Supabase
+    cursos = supabase.table('curso').select('*').execute().data
+    
+    # Obtener todos los profesores para hacer la relación
+    profesores = supabase.table('profesor').select('id, nombre').execute().data
+    profesores_dict = {profesor['id']: profesor['nombre'] for profesor in profesores}
+
+    # Construir la lista de cursos con el nombre del profesor incluido
+    cursos_list = []
+    for curso in cursos:
+        cursos_list.append({
+            'id': curso['id'],
+            'nombre': curso['nombre'],
+            'descripcion': curso['descripcion'],
+            'profesor_id': curso['profesor_id'],
+            'colegio': curso['colegio'],
+            'profesor_nombre': profesores_dict.get(curso['profesor_id'], 'Desconocido')  # Manejo si el profesor no existe
+        })
+    
+    return jsonify(cursos_list)
+
+
+@main_bp.route('/alumnos', methods=['GET'])
+def get_alumnos():
+    # Obtener todos los alumnos desde Supabase
+    alumnos = supabase.table('alumno').select('*').execute().data
+    
+    # Obtener todos los cursos y grupos para hacer las relaciones
+    cursos = supabase.table('curso').select('id, nombre').execute().data
+    grupos = supabase.table('grupo').select('id, nombre').execute().data
+    
+    # Crear diccionarios para acceder rápidamente a los nombres
+    cursos_dict = {curso['id']: curso['nombre'] for curso in cursos}
+    grupos_dict = {grupo['id']: grupo['nombre'] for grupo in grupos}
+
+    # Construir la lista de alumnos con el nombre del curso y del grupo
+    alumnos_list = []
+    for alumno in alumnos:
+        alumnos_list.append({
+            'id': alumno['id'],
+            'nombre': alumno['nombre'],
+            'curso_id': alumno['curso_id'],
+            'grupo_id': alumno['grupo_id'],
+            'curso_nombre': cursos_dict.get(alumno['curso_id'], 'Desconocido'),
+            'grupo_nombre': grupos_dict.get(alumno['grupo_id'], None)  # None si el grupo no existe
+        })
+    
+    return jsonify(alumnos_list)
+
+
 
 @main_bp.route('/grupos', methods=['GET'])
 def get_grupos():
     try:
-        # Obtener todos los grupos de la base de datos y la información del curso asociado
-        response = supabase.from_('grupo').select('id, nombre, curso_id, progreso, curso(nombre as curso_nombre), alumnos(id, nombre)').execute()
-        data, error = response.data, response.error
+        response = supabase.table('grupo').select('id, nombre, curso_id, progreso, alumno(id, nombre)').execute()
+        data = response.data
 
-        if error:
-            print(f"Error al obtener los grupos: {error}")
-            return jsonify({"error": "Error al obtener los grupos"}), 500
+        
+
+        cursos_response = supabase.table('curso').select('id, nombre').execute()
+        cursos_data = cursos_response.data
+        cursos_dict = {curso['id']: curso['nombre'] for curso in cursos_data}
 
         grupos_list = []
         for grupo in data:
+            alumnos = grupo.get('alumno', [])
+            curso_nombre = cursos_dict.get(grupo['curso_id'])
+
             grupo_formateado = {
                 'id': grupo['id'],
                 'nombre': grupo['nombre'],
                 'curso_id': grupo['curso_id'],
+                'curso_nombre': curso_nombre,  # Agregar el nombre del curso
                 'progreso': grupo.get('progreso') if grupo.get('progreso') is not None else 'Sin progreso',
-                'alumnos': [{'id': alumno['id'], 'nombre': alumno['nombre']} for alumno in grupo.get('alumnos', [])]
+                'alumnos': [{'id': alumno['id'], 'nombre': alumno['nombre']} for alumno in alumnos]
             }
             grupos_list.append(grupo_formateado)
 
@@ -74,6 +132,8 @@ def get_grupos():
     except Exception as e:
         print(f"Error inesperado al obtener los grupos: {e}")
         return jsonify({"error": "Error inesperado al obtener los grupos"}), 500
+
+
 
 @main_bp.route('/crear_grupos/<int:curso_id>/<int:tamano_grupo>', methods=['POST'])
 def crear_grupos(curso_id, tamano_grupo):
@@ -143,7 +203,7 @@ def crear_curso():
         "colegio": colegio
     }).execute()
 
-    print("Curso creado:", data)
+    #print("Curso creado:", data)
 
     flash('Curso creado exitosamente', 'success')
     return redirect(url_for('main.registro'))
@@ -186,7 +246,7 @@ def profesor_registro():
     nombre = request.form.get('nombre')
     email = request.form.get('email')
     contraseña = request.form.get('contraseña')
-    print(nombre , email ,contraseña)
+    #print(nombre , email ,contraseña)
     # Validar que todos los campos estén completos
     if not nombre or not email or not contraseña:
         flash('Todos los campos son obligatorios.', 'error')
@@ -196,7 +256,7 @@ def profesor_registro():
         # Validar si el correo ya existe en la base de datos de Supabase
         response = supabase.from_('profesor').select('email').eq('email', email).execute()
         data = response.data
-        print(data)
+        #print(data)
         
 
         
@@ -222,7 +282,7 @@ def eliminar_profesor(id):
         # Eliminar el profesor de la base de datos de Supabase por ID
         response = supabase.from_('profesor').delete().eq('id', id).execute()
         data = response.data
-        print(data)
+        #print(data)
         
           # Redirige a la página apropiada
 
@@ -282,4 +342,52 @@ def eliminar_grupo(grupo_id):
     flash('Grupo eliminado exitosamente.', 'success')
     return redirect(url_for('main.registro'))
 
+@main_bp.route('/actualizar_progreso', methods=['POST'])
+def actualizar_progreso():
+    # Obtener los datos del request
+    data = request.get_json()
+
+    grupo_id = data.get('id')
+    nombre = data.get('nombre')
+    curso_id = data.get('curso_id')
+    progreso = data.get('progreso')
+
+    # Mapear niveles de progreso a valores numéricos
+    niveles = {
+        'Sin progreso': 1,
+        'Historia': 2,
+        'Constructor': 3,
+        'Ingeniero': 4,
+        'Presentemos': 5
+    }
+
+    if not grupo_id or not nombre or not curso_id or not progreso:
+        return jsonify({"error": "Faltan parámetros necesarios"}), 400
+
+    if progreso not in niveles:
+        return jsonify({"error": "Nivel de progreso inválido"}), 400
+
+    # Buscar el grupo en Supabase usando los filtros: id, nombre y curso_id
+    grupo_response = supabase.table('grupo').select('*') \
+        .eq('id', grupo_id) \
+        .eq('nombre', nombre) \
+        .eq('curso_id', curso_id) \
+        .execute()
+    
+    if not grupo_response.data or len(grupo_response.data) == 0:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    grupo = grupo_response.data[0]
+    progreso_actual = grupo.get('progreso') if grupo.get('progreso') is not None else 'Sin progreso'
+
+    # Comparar niveles: no permitir que el progreso se reduzca o sea igual
+    if niveles[progreso] <= niveles[progreso_actual]:
+        return jsonify({"error": f"El progreso no puede ser reducido o igual. Progreso actual: {progreso_actual}"}), 400
+
+    # Actualizar el progreso del grupo en Supabase
+    update_response = supabase.table('grupo').update({'progreso': progreso}).eq('id', grupo_id).execute()
+    
+    
+
+    return jsonify({"message": "Progreso actualizado correctamente"}), 200
 
