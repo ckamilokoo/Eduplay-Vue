@@ -18,6 +18,8 @@ COPY main.py ./
 # Instalar las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
+EXPOSE 8080
+
 # Comando para ejecutar la aplicación
 CMD ["python", "-m", "main"]
 

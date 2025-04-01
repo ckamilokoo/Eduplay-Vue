@@ -1,140 +1,206 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
+:root {
+  --primary: #4361ee;
+  --primary-light: #4895ef;
+  --secondary: #3f37c9;
+  --accent: #f72585;
+  --success: #4cc9f0;
+  --warning: #f8961e;
+  --danger: #f94144;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --body-bg: #f5f7fb;
+  --card-bg: #ffffff;
+  --card-border: #e0e6ed;
+  --card-shadow: rgba(0, 0, 0, 0.05);
 }
 
 body {
-  background-color: #fcec6a;
-  color: #3653ab;
-  font-family: "Comic Sans MS", "Arial", sans-serif;
-  display: flex;
-  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--body-bg);
+  color: var(--gray-800);
   margin: 0;
+  padding: 0;
 }
 
-main {
-  flex: 1;
-  margin-bottom: 50px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  color: var(--gray-900);
 }
 
-/* Estilos personalizados para el navbar */
-.custom-navbar {
-  background-color: #b6d7f2;
-  /* Cambia este color al que desees */
-  padding: 10px 0;
-  /* Ajusta el padding segÃºn sea necesario */
+/* Navbar Styles */
+.navbar {
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 0.75rem 1rem;
 }
 
-.custom-navbar .navbar-brand {
-  color: black;
-  /* Asegura que el color del texto no cambie */
+.navbar-brand {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
 }
 
-.custom-navbar .navbar-brand img {
-  filter: none;
-  /* Asegura que el filtro no altere la imagen */
+.brand-text {
+  color: var(--primary);
+  font-size: 1.5rem;
 }
 
-.custom-navbar .navbar-nav .nav-link {
-  color: inherit;
-  /* Asegura que el color del texto de los enlaces no cambie */
+.nav-link {
+  color: var(--gray-700);
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
 }
 
-/*------------------Sección Index-----------------------*/
-.content-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 20px auto;
-  width: 80%;
+.nav-link:hover {
+  color: var(--primary);
+  background-color: var(--gray-100);
 }
 
-.content-item {
-  flex: 1;
-  margin: 10px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Main Content */
+.main-content {
+  min-height: calc(100vh - 160px);
 }
 
-.content-img {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  border: 2px solid #09b43f;
-  border-radius: 10px;
+/* Footer Styles */
+.footer {
+  background-color: var(--card-bg);
+  color: var(--gray-600);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Botones */
-.btn-custom {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #fcec05;
-  /* Color de fondo llamativo para niños */
-  border: none;
-  border-radius: 10px;
-  color: #3653ab;
-  /* Texto en color oscuro para contraste */
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+.footer a {
+  color: var(--gray-600);
+  transition: color 0.2s ease;
 }
 
-.btn-custom:hover {
-  background-color: #09b43f;
-  /* Cambio de color en hover */
-  transform: scale(1.05);
-  /* Efecto de agrandamiento en hover */
+.footer a:hover {
+  color: var(--primary);
 }
 
-.btn-custom a {
-  color: #3653ab;
-  text-decoration: none;
+/* Card Styles */
+.card {
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
-.btn-custom a:hover {
-  color: white;
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--card-shadow);
 }
 
-/*------------------Fin Sección Index-----------------------*/
-
-.container-video {
-  max-width: 800px;
-  margin: 0 auto 50px auto;
-  padding: 20px;
-  background: linear-gradient(135deg, #fcec05, #09b43f);
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
+.card-header {
+  background-color: var(--gray-100);
+  border-bottom: 1px solid var(--card-border);
+  padding: 1rem 1.25rem;
 }
 
-video {
-  width: 100%;
-  border-radius: 15px;
-  border: 5px solid #3653ab;
+.card-title {
+  margin-bottom: 0;
+  color: var(--primary);
 }
 
-.video-description {
-  margin-top: 15px;
-  background: linear-gradient(135deg, #fcec05, #09b43f);
-  padding: 15px;
-  border-radius: 10px;
-  color: black;
-  border: 2px solid #09b43f;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Button Styles */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
-footer {
-  background-color: #b6d7f2;
-  /* Color de fondo verde */
-  color: black;
-  /* Color del texto blanco */
-  padding: 20px;
-  text-align: center;
-  margin-top: auto;
-  /* Asegura que el footer se mantenga en la parte inferior */
+.btn-primary:hover {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.btn-success {
+  background-color: var(--success);
+  border-color: var(--success);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-warning {
+  background-color: var(--warning);
+  border-color: var(--warning);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-text {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .main-content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Flash messages */
+.flashes {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.flashes li {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.flashes .success {
+  background-color: rgba(76, 201, 240, 0.2);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+
+.flashes .error {
+  background-color: rgba(249, 65, 68, 0.2);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+
+.flashes .warning {
+  background-color: rgba(248, 150, 30, 0.2);
+  border: 1px solid var(--warning);
+  color: var(--warning);
+}
+
+.flashes .info {
+  background-color: rgba(72, 149, 239, 0.2);
+  border: 1px solid var(--primary-light);
+  color: var(--primary-light);
 }

@@ -1,256 +1,455 @@
-{% extends 'base.html' %} {% block title %}Registro{% endblock %} {% block
-contenido %}
-
-<!--CSS-->
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/registro.css') }}"
-/>
+{% extends 'base.html' %} {% block title %}Administración - EDUPLAY{% endblock
+%} {% block contenido %}
+<div class="page-header">
+  <h1 class="page-title">Panel de Administración</h1>
+  <p class="text-muted">
+    Gestione profesores, cursos, alumnos y grupos desde este panel centralizado.
+  </p>
+</div>
 
 {% with messages = get_flashed_messages(with_categories=true) %} {% if messages
 %}
-<ul class="flashes">
+<div class="flashes">
   {% for category, message in messages %}
-  <li class="{{ category }}">{{ message }}</li>
+  <li class="{{ category }}">
+    {% if category == 'success' %}
+    <i class="fas fa-check-circle me-2"></i>
+    {% elif category == 'error' %}
+    <i class="fas fa-exclamation-circle me-2"></i>
+    {% elif category == 'warning' %}
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {% else %}
+    <i class="fas fa-info-circle me-2"></i>
+    {% endif %} {{ message }}
+  </li>
   {% endfor %}
-</ul>
+</div>
 {% endif %} {% endwith %}
 
-<h1>Registro</h1>
-
 <!-- Sección de profesores -->
-<div class="container">
-  <section class="section">
-    <div class="form-container">
-      <h2>Formulario Profesor</h2>
-      <form method="POST" action="{{ url_for('main.profesor_registro') }}">
-        <div class="form-group">
-          <label for="nombre_profesor">Nombre:</label>
-          <input
-            type="text"
-            name="nombre"
-            id="nombre_profesor"
-            autocomplete="name"
-            required
-          />
-        </div>
+<div class="section-container">
+  <div class="section-header">
+    <h2>
+      <i class="fas fa-chalkboard-teacher section-icon me-2"></i> Gestión de
+      Profesores
+    </h2>
+  </div>
+  <div class="section-body">
+    <div class="section-row">
+      <div class="section-col">
+        <div class="form-card">
+          <h3 class="form-title">
+            <i class="fas fa-user-plus"></i> Registrar Profesor
+          </h3>
+          <form method="POST" action="{{ url_for('main.profesor_registro') }}">
+            <div class="form-group">
+              <label for="nombre_profesor" class="form-label">Nombre:</label>
+              <input
+                type="text"
+                name="nombre"
+                id="nombre_profesor"
+                class="form-control"
+                autocomplete="name"
+                required
+              />
+            </div>
 
-        <div class="form-group">
-          <label for="email_profesor">Email:</label>
-          <input
-            type="email"
-            name="email"
-            id="email_profesor"
-            autocomplete="email"
-            required
-          />
-        </div>
+            <div class="form-group">
+              <label for="email_profesor" class="form-label">Email:</label>
+              <input
+                type="email"
+                name="email"
+                id="email_profesor"
+                class="form-control"
+                autocomplete="email"
+                required
+              />
+            </div>
 
-        <div class="form-group">
-          <label for="contraseña_profesor">Contraseña:</label>
-          <input
-            type="password"
-            name="contraseña"
-            id="contraseña_profesor"
-            autocomplete="new-password"
-            required
-          />
-        </div>
-
-        <button type="submit" class="btn">Registrar Profesor</button>
-      </form>
-    </div>
-    <div class="list-container">
-      <h2>Profesores</h2>
-      <ul>
-        {% for profesor in profesores %}
-        <li>
-          {{ profesor.nombre }} - {{ profesor.email }}
-          <form
-            method="POST"
-            action="{{ url_for('main.eliminar_profesor', id=profesor.id) }}"
-            style="display: inline"
-          >
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-          </form>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="form-container">
-      <h2>Formulario Cursos</h2>
-      <form action="{{ url_for('main.crear_curso') }}" method="POST">
-        <label for="nombre_curso">Nombre del curso:</label>
-        <input
-          type="text"
-          id="nombre_curso"
-          name="nombre"
-          autocomplete="off"
-          required
-        />
-        <label for="nombre_curso">Colegio:</label>
-        <input
-          type="text"
-          id="nombre_colegio"
-          name="colegio"
-          autocomplete="off"
-          required
-        />
-
-        <label for="descripcion_curso">Descripción del curso:</label>
-        <textarea
-          id="descripcion_curso"
-          name="descripcion"
-          rows="4"
-          autocomplete="off"
-          required
-        ></textarea>
-
-        <label for="profesor_id">Profesor:</label>
-        <select id="profesor_id" name="profesor_id" required>
-          <option value="">Selecciona un profesor</option>
-          {% for profesor in profesores %}
-          <option value="{{ profesor.id }}">{{ profesor.nombre }}</option>
-          {% endfor %}
-        </select>
-
-        <button type="submit" class="btn">Crear Curso</button>
-      </form>
-    </div>
-    <div class="list-container">
-      <h2>Cursos</h2>
-      <ul class="cursos-lista">
-        {% for curso in cursos %}
-        <li>
-          <h3>{{ curso.nombre }}</h3>
-          <p>{{ curso.descripcion }}</p>
-          <form
-            action="{{ url_for('main.eliminar_curso', id=curso.id) }}"
-            method="POST"
-          >
-            <button type="submit" class="btn btn-danger">Eliminar Curso</button>
-          </form>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="form-container">
-      <h2>Formulario Alumnos</h2>
-      <form method="POST" action="{{ url_for('main.crear_alumno') }}">
-        <div class="form-group">
-          <label for="nombre_alumno">Nombre:</label>
-          <input
-            type="text"
-            name="nombre"
-            id="nombre_alumno"
-            autocomplete="name"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="curso_id">Curso:</label>
-          <select name="curso_id" id="curso_id" required>
-            {% for curso in cursos %}
-            <option value="{{ curso.id }}">{{ curso.nombre }}</option>
-            {% endfor %}
-          </select>
-        </div>
-
-        <button type="submit" class="btn">Agregar Alumno</button>
-      </form>
-    </div>
-    <div class="list-container">
-      <h2>Lista Alumnos</h2>
-      <ul>
-        {% for alumno in alumnos %}
-        <li>
-          {{ alumno.nombre }} - {{ alumno.email }} - {{ alumno.curso.nombre }}
-          <form
-            method="POST"
-            action="{{ url_for('main.eliminar_alumno', id=alumno.id) }}"
-            style="display: inline"
-          >
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-          </form>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </section>
-  <section>
-    <div class="grupos-container">
-      <h2>Grupos</h2>
-      <div class="crear-grupos">
-        {% for curso in cursos %}
-        <form
-          action="{{ url_for('main.crear_grupos', curso_id=curso.id, tamano_grupo=4) }}"
-          method="POST"
-        >
-          <button type="submit" class="btn2">
-            Crear Grupos de 4 para {{ curso.nombre }}
-          </button>
-        </form>
-        {% endfor %}
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre del Grupo</th>
-            <th>Curso ID</th>
-            <th>Colegio</th>
-            <th>Alumnos</th>
-            <th>Progreso</th>
-            <th>Acciones</th>
-            <!-- Nueva columna para las acciones -->
-          </tr>
-        </thead>
-        <tbody>
-          {% for grupo in grupos %}
-          <tr>
-            <td>{{ grupo.id }}</td>
-            <td>{{ grupo.nombre }}</td>
-            <td>{{ grupo.curso_id }}</td>
-            <td>{{ grupo.colegio }}</td>
-
-            <td>
-              {% if grupo.alumnos %}
-              <ul>
-                {% for alumno in grupo.alumnos %}
-                <li>{{ alumno.nombre }}</li>
-                {% endfor %}
-              </ul>
-              {% else %} No hay alumnos asignados. {% endif %}
-            </td>
-            <td>
-              {% if grupo.progreso is none %} Sin progreso {% else %} {{
-              grupo.progreso }} {% endif %}
-            </td>
-
-            <td>
-              <!-- Formulario para eliminar el grupo -->
-              <form
-                action="{{ url_for('main.eliminar_grupo', grupo_id=grupo.id) }}"
-                method="POST"
-                onsubmit="return confirm('¿Estás seguro de que deseas eliminar este grupo?');"
+            <div class="form-group">
+              <label for="contraseña_profesor" class="form-label"
+                >Contraseña:</label
               >
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-              </form>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              <input
+                type="password"
+                name="contraseña"
+                id="contraseña_profesor"
+                class="form-control"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-save me-2"></i> Registrar Profesor
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="section-col">
+        <div class="list-card">
+          <h3 class="list-title">
+            <i class="fas fa-users"></i> Listado de Profesores
+          </h3>
+          {% if profesores %}
+          <ul class="list-group">
+            {% for profesor in profesores %}
+            <li class="list-group-item">
+              <div class="list-group-item-content">
+                <strong>{{ profesor.nombre }}</strong>
+                <div class="text-muted">{{ profesor.email }}</div>
+              </div>
+              <div class="list-group-item-actions">
+                <form
+                  method="POST"
+                  action="{{ url_for('main.eliminar_profesor', id=profesor.id) }}"
+                  onsubmit="return confirm('¿Está seguro que desea eliminar este profesor?');"
+                >
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </form>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i> No hay profesores
+            registrados.
+          </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 </div>
 
+<!-- Sección de cursos -->
+<div class="section-container">
+  <div class="section-header">
+    <h2><i class="fas fa-book section-icon me-2"></i> Gestión de Cursos</h2>
+  </div>
+  <div class="section-body">
+    <div class="section-row">
+      <div class="section-col">
+        <div class="form-card">
+          <h3 class="form-title">
+            <i class="fas fa-plus-circle"></i> Crear Nuevo Curso
+          </h3>
+          <form action="{{ url_for('main.crear_curso') }}" method="POST">
+            <div class="form-group">
+              <label for="nombre_curso" class="form-label"
+                >Nombre del curso:</label
+              >
+              <input
+                type="text"
+                id="nombre_curso"
+                name="nombre"
+                class="form-control"
+                autocomplete="off"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="nombre_colegio" class="form-label">Colegio:</label>
+              <input
+                type="text"
+                id="nombre_colegio"
+                name="colegio"
+                class="form-control"
+                autocomplete="off"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="descripcion_curso" class="form-label"
+                >Descripción del curso:</label
+              >
+              <textarea
+                id="descripcion_curso"
+                name="descripcion"
+                rows="4"
+                class="form-control form-textarea"
+                autocomplete="off"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="profesor_id" class="form-label">Profesor:</label>
+              <select
+                id="profesor_id"
+                name="profesor_id"
+                class="form-select"
+                required
+              >
+                <option value="">Selecciona un profesor</option>
+                {% for profesor in profesores %}
+                <option value="{{ profesor.id }}">{{ profesor.nombre }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-plus me-2"></i> Crear Curso
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="section-col">
+        <div class="list-card">
+          <h3 class="list-title">
+            <i class="fas fa-list-alt"></i> Listado de Cursos
+          </h3>
+          {% if cursos %}
+          <ul class="list-group">
+            {% for curso in cursos %}
+            <li class="list-group-item">
+              <div class="list-group-item-content">
+                <strong>{{ curso.nombre }}</strong>
+                <div class="badge badge-primary mb-1">{{ curso.colegio }}</div>
+                <div class="text-muted">{{ curso.descripcion }}</div>
+              </div>
+              <div class="list-group-item-actions">
+                <form
+                  action="{{ url_for('main.eliminar_curso', id=curso.id) }}"
+                  method="POST"
+                  onsubmit="return confirm('¿Está seguro que desea eliminar este curso?');"
+                >
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </form>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i> No hay cursos registrados.
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sección de alumnos -->
+<div class="section-container">
+  <div class="section-header">
+    <h2>
+      <i class="fas fa-user-graduate section-icon me-2"></i> Gestión de Alumnos
+    </h2>
+  </div>
+  <div class="section-body">
+    <div class="section-row">
+      <div class="section-col">
+        <div class="form-card">
+          <h3 class="form-title">
+            <i class="fas fa-user-plus"></i> Registrar Alumno
+          </h3>
+          <form method="POST" action="{{ url_for('main.crear_alumno') }}">
+            <div class="form-group">
+              <label for="nombre_alumno" class="form-label">Nombre:</label>
+              <input
+                type="text"
+                name="nombre"
+                id="nombre_alumno"
+                class="form-control"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="curso_id" class="form-label">Curso:</label>
+              <select
+                name="curso_id"
+                id="curso_id"
+                class="form-select"
+                required
+              >
+                <option value="">Selecciona un curso</option>
+                {% for curso in cursos %}
+                <option value="{{ curso.id }}">
+                  {{ curso.nombre }} - {{ curso.colegio }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-save me-2"></i> Agregar Alumno
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="section-col">
+        <div class="list-card">
+          <h3 class="list-title">
+            <i class="fas fa-users"></i> Listado de Alumnos
+          </h3>
+          {% if alumnos %}
+          <ul class="list-group">
+            {% for alumno in alumnos %}
+            <li class="list-group-item">
+              <div class="list-group-item-content">
+                <strong>{{ alumno.nombre }}</strong>
+                {% if alumno.email %}
+                <div class="text-muted">{{ alumno.email }}</div>
+                {% endif %}
+                <div class="badge badge-primary">{{ alumno.curso.nombre }}</div>
+              </div>
+              <div class="list-group-item-actions">
+                <form
+                  method="POST"
+                  action="{{ url_for('main.eliminar_alumno', id=alumno.id) }}"
+                  onsubmit="return confirm('¿Está seguro que desea eliminar este alumno?');"
+                >
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </form>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i> No hay alumnos registrados.
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sección de grupos -->
+<div class="section-container">
+  <div class="section-header">
+    <h2>
+      <i class="fas fa-users-cog section-icon me-2"></i> Gestión de Grupos
+    </h2>
+  </div>
+  <div class="section-body">
+    <div class="grupos-container">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-plus-circle me-2"></i> Crear Grupos
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            {% for curso in cursos %}
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">{{ curso.nombre }}</h5>
+                  <p class="card-text text-muted">{{ curso.colegio }}</p>
+                  <form
+                    action="{{ url_for('main.crear_grupos', curso_id=curso.id, tamano_grupo=4) }}"
+                    method="POST"
+                  >
+                    <button type="submit" class="btn btn-success btn-block">
+                      <i class="fas fa-users me-2"></i> Crear Grupos de 4
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-table me-2"></i> Listado de Grupos
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre del Grupo</th>
+                  <th>Curso</th>
+                  <th>Colegio</th>
+                  <th>Alumnos</th>
+                  <th>Progreso</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for grupo in grupos %}
+                <tr>
+                  <td>{{ grupo.id }}</td>
+                  <td>{{ grupo.nombre }}</td>
+                  <td>
+                    {% for curso in cursos %} {% if curso.id == grupo.curso_id
+                    %} {{ curso.nombre }} {% endif %} {% endfor %}
+                  </td>
+                  <td>{{ grupo.colegio }}</td>
+                  <td>
+                    {% if grupo.alumnos %}
+                    <ul class="list-unstyled mb-0">
+                      {% for alumno in grupo.alumnos %}
+                      <li>
+                        <i class="fas fa-user-graduate me-1 text-primary"></i>
+                        {{ alumno.nombre }}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    {% else %}
+                    <span class="text-muted">No hay alumnos asignados</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if grupo.progreso is none %}
+                    <span class="badge badge-warning">Sin progreso</span>
+                    {% else %}
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="progress flex-grow-1 me-2"
+                        style="height: 10px"
+                      >
+                        <div
+                          class="progress-bar"
+                          role="progressbar"
+                          style="width: {{ grupo.progreso }}%"
+                        ></div>
+                      </div>
+                      <span>{{ grupo.progreso }}%</span>
+                    </div>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <form
+                      action="{{ url_for('main.eliminar_grupo', grupo_id=grupo.id) }}"
+                      method="POST"
+                      onsubmit="return confirm('¿Está seguro que desea eliminar este grupo?');"
+                    >
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Eliminar
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

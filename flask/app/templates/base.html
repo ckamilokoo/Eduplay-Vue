@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}EDUPLAY{% endblock %}</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- CSS -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/base.css') }}"
     />
-    <!-- Enlace al CSS del carrusel -->
 
     <!-- Bootstrap -->
     <link
@@ -19,32 +26,84 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    {% block extra_css %}{% endblock %}
   </head>
 
   <body class="d-flex flex-column min-vh-100">
     <!-- NavBar -->
-    <nav class="navbar custom-navbar">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('main.registro') }}">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="{{ url_for('main.registro') }}"
+        >
           <img
             src="{{ url_for('static', filename='logo/steamplay.png') }}"
-            alt=""
-            width="70px"
-            height="70px"
-            class="d-inline-block align-text-top"
+            alt="SteamPlay Logo"
+            width="50"
+            height="50"
+            class="d-inline-block me-2"
           />
-          SteamPlay
+          <span class="brand-text">SteamPlay</span>
         </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.registro') }}">
+                <i class="fas fa-home me-1"></i> Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-chart-line me-1"></i> Estadísticas
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-cog me-1"></i> Configuración
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
-    <div class="container flex-grow-1 mt-4">
+    <div class="container main-content py-4">
       {% block contenido %}{% endblock %}
     </div>
 
-    <footer class="footer">
-      <div class="container text-center">
-        <span class="">© 2024 STEAMPLAY</span>
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start">
+            <span>© 2024 STEAMPLAY</span>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <a href="#" class="text-decoration-none me-3">
+              <i class="fas fa-question-circle"></i> Ayuda
+            </a>
+            <a href="#" class="text-decoration-none">
+              <i class="fas fa-envelope"></i> Contacto
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
 
@@ -54,5 +113,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    {% block scripts %}{% endblock %}
   </body>
 </html>
