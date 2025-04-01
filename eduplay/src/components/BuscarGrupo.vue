@@ -94,15 +94,11 @@ const fetchCursosYGrupos = async () => {
 
   try {
     // Obtener cursos
-    const responseCursos = await axios.get(
-      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/cursos',
-    );
+    const responseCursos = await axios.get('https://paneladmin-a67gr1hs.b4a.run/cursos');
     cursos.value = responseCursos.data;
 
     // Obtener grupos
-    const responseGrupos = await axios.get(
-      'https://backend-flask.1jpfcu1s9m4w.us-south.codeengine.appdomain.cloud/grupos',
-    );
+    const responseGrupos = await axios.get('https://paneladmin-a67gr1hs.b4a.run/grupos');
     console.log(responseGrupos.data);
     grupos.value = responseGrupos.data;
   } catch (err) {
