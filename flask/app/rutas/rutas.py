@@ -3,307 +3,283 @@ from app.modelo.sql import db, Profesor , Curso , Alumno ,Grupo
 from bleak import BleakClient
 from werkzeug.security import generate_password_hash
 import random  # Importar el módulo random
+from app.modelo.supabase_client import supabase
 
 
 main_bp = Blueprint('main', __name__)
 
-
-@main_bp.route('/crear_grupos/<int:curso_id>/<int:tamano_grupo>', methods=['POST'])
-def crear_grupos(curso_id, tamano_grupo):
-    # Obtener los alumnos del curso especificado
-    alumnos = Alumno.query.filter_by(curso_id=curso_id).all()
+@main_bp.route('/')
+def registro():
+    # Consultas a Supabase
+    profesores = supabase.table('profesor').select('*').execute().data
+    print("profesores :", profesores)
     
-    # Convertir a lista de alumnos
-    alumnos_list = [alumno for alumno in alumnos]
+    cursos = supabase.table('curso').select('*').execute().data
+    print("cursos:", cursos)
+    
+    # Obtener los alumnos y agruparlos por grupo_id
+    alumnos = supabase.table('alumno').select('*').execute().data
+    print("alumnos :", alumnos)
+    
+    # Agrupar los alumnos por grupo_id
+    grupos_alumnos = {}
+    for alumno in alumnos:
+        grupo_id = alumno.get('grupo_id')
+        if grupo_id not in grupos_alumnos:
+            grupos_alumnos[grupo_id] = []
+        grupos_alumnos[grupo_id].append(alumno)
+    
+    # Consultar los grupos
+    grupos = supabase.table('grupo').select('*').execute().data
+    print("grupos :", grupos)
+    
+    # Asociar los alumnos a cada grupo
+    for grupo in grupos:
+        grupo['alumnos'] = grupos_alumnos.get(grupo['id'], [])
 
-    # Barajar la lista de alumnos
-    random.shuffle(alumnos_list)
-
-    # Crear grupos
-    grupos = []
-    for i in range(0, len(alumnos_list), tamano_grupo):
-        grupo = alumnos_list[i:i + tamano_grupo]
-        grupos.append(grupo)
-
-    # Crear y guardar los grupos en la base de datos
-    curso = Curso.query.get(curso_id)  # Obtener el curso correspondiente
-    for index, grupo in enumerate(grupos):
-        nuevo_grupo = Grupo.create_with_course(nombre=f'Grupo {index + 1}', curso=curso)
-        
-        # Asignar el grupo a los alumnos
-        for alumno in grupo:
-            alumno.grupo_id = nuevo_grupo.id  # Asignar el grupo al alumno
-            db.session.commit()  # Guardar los cambios
-
-    flash('Grupos creados exitosamente.', 'success')
-    return redirect(url_for('main.registro'))
+    return render_template(
+        'registro.html', 
+        profesores=profesores, 
+        cursos=cursos, 
+        alumnos=alumnos, 
+        grupos=grupos
+    )
 
 
 
 @main_bp.route('/grupos', methods=['GET'])
 def get_grupos():
-    # Obtener todos los grupos de la base de datos
-    grupos = Grupo.query.all()
-    
-    # Convertir los grupos a un formato que jsonify pueda manejar
-    grupos_list = []
-    for grupo in grupos:
-        grupos_list.append({
-            'id': grupo.id,
-            'nombre': grupo.nombre,
-            'curso_id': grupo.curso_id,
-            'progreso': grupo.progreso if grupo.progreso is not None else 'Sin progreso',
-            'alumnos': [{'id': alumno.id, 'nombre': alumno.nombre} for alumno in grupo.alumnos]
-        })
-    
-    # Devolver la lista de grupos como respuesta JSON
-    return jsonify(grupos_list)
-
-@main_bp.route('/actualizar_progreso', methods=['POST'])
-def actualizar_progreso():
-    # Obtener los datos del request
-    data = request.get_json()
-
-    # Validar los parámetros
-    grupo_id = data.get('id')
-    nombre = data.get('nombre')
-    curso_id = data.get('curso_id')
-    progreso = data.get('progreso')
-
-    # Mapear los niveles de progreso a valores numéricos para facilitar la comparación
-    niveles = {
-        'Sin progreso':1,
-        'Historia': 2,
-        'Constructor': 3,
-        'Ingeniero': 4,
-        'Presentemos': 5
-    }
-
-    if not grupo_id or not nombre or not curso_id or not progreso:
-        return jsonify({"error": "Faltan parámetros necesarios"}), 400
-
-    # Verificar que el progreso ingresado es válido
-    if progreso not in niveles:
-        return jsonify({"error": "Nivel de progreso inválido"}), 400
-
-    # Buscar el grupo por ID
-    grupo = Grupo.query.filter_by(id=grupo_id, nombre=nombre, curso_id=curso_id).first()
-
-    if not grupo:
-        return jsonify({"error": "Grupo no encontrado"}), 404
-
-    # Obtener el progreso actual del grupo
-    progreso_actual = grupo.progreso if grupo.progreso else 'Sin progreso'
-    
-    # Comparar el nivel actual con el nivel solicitado para actualizar
-    if niveles[progreso] <= niveles[progreso_actual]:
-        return jsonify({"error": f"El progreso no puede ser reducido o igual. Progreso actual: {progreso_actual}"}), 400
-
-    # Actualizar el progreso del grupo solo si es mayor
-    grupo.progreso = progreso
-
     try:
-        db.session.commit()  # Guardar los cambios en la base de datos
-        return jsonify({"message": "Progreso actualizado correctamente"}), 200
+        # Obtener todos los grupos de la base de datos y la información del curso asociado
+        response = supabase.from_('grupo').select('id, nombre, curso_id, progreso, curso(nombre as curso_nombre), alumnos(id, nombre)').execute()
+        data, error = response.data, response.error
+
+        if error:
+            print(f"Error al obtener los grupos: {error}")
+            return jsonify({"error": "Error al obtener los grupos"}), 500
+
+        grupos_list = []
+        for grupo in data:
+            grupo_formateado = {
+                'id': grupo['id'],
+                'nombre': grupo['nombre'],
+                'curso_id': grupo['curso_id'],
+                'progreso': grupo.get('progreso') if grupo.get('progreso') is not None else 'Sin progreso',
+                'alumnos': [{'id': alumno['id'], 'nombre': alumno['nombre']} for alumno in grupo.get('alumnos', [])]
+            }
+            grupos_list.append(grupo_formateado)
+
+        return jsonify(grupos_list)
+
     except Exception as e:
-        db.session.rollback()  # Revertir en caso de error
-        return jsonify({"error": str(e)}), 500
+        print(f"Error inesperado al obtener los grupos: {e}")
+        return jsonify({"error": "Error inesperado al obtener los grupos"}), 500
 
-
-@main_bp.route('/cursos', methods=['GET'])
-def get_cursos():
-    # Obtener todos los cursos de la base de datos
-    cursos = Curso.query.all()
+@main_bp.route('/crear_grupos/<int:curso_id>/<int:tamano_grupo>', methods=['POST'])
+def crear_grupos(curso_id, tamano_grupo):
+    # 1️⃣ Obtener los alumnos del curso desde Supabase
+    response = supabase.table('alumno').select('*').eq('curso_id', curso_id).execute()
+    alumnos = response.data if response.data else []
     
-    # Convertir los cursos a un formato que jsonify pueda manejar
-    cursos_list = []
-    for curso in cursos:
-        cursos_list.append({
-            'id': curso.id,
-            'nombre': curso.nombre,
-            'descripcion': curso.descripcion,
-            'profesor_id': curso.profesor_id,
-            'colegio': curso.colegio,
-            'profesor_nombre': curso.profesor.nombre  # Para incluir el nombre del profesor
-        })
-    
-    # Devolver la lista de cursos como respuesta JSON
-    return jsonify(cursos_list)
-
-@main_bp.route('/alumnos', methods=['GET'])
-def get_alumnos():
-    # Obtener todos los alumnos de la base de datos
-    alumnos = Alumno.query.all()
-    
-    # Convertir los alumnos a un formato que jsonify pueda manejar
-    alumnos_list = []
-    for alumno in alumnos:
-        alumnos_list.append({
-            'id': alumno.id,
-            'nombre': alumno.nombre,
-            'curso_id': alumno.curso_id,
-            'grupo_id': alumno.grupo_id,
-            'curso_nombre': alumno.curso.nombre,  # Para incluir el nombre del curso
-            'grupo_nombre': alumno.grupo.nombre if alumno.grupo else None  # Incluir el nombre del grupo si existe
-        })
-    
-    # Devolver la lista de alumnos como respuesta JSON
-    return jsonify(alumnos_list)
-
-
-
-@main_bp.route('/eliminar_grupo/<int:grupo_id>', methods=['POST'])
-def eliminar_grupo(grupo_id):
-    # Buscar el grupo por su ID
-    grupo = Grupo.query.get(grupo_id)
-
-    if not grupo:
-        flash('El grupo no existe.', 'error')
+    if not alumnos:
+        flash('No hay alumnos en este curso.', 'warning')
         return redirect(url_for('main.registro'))
 
-    # Opción 1: Eliminar la relación entre los alumnos y el grupo
-    for alumno in grupo.alumnos:  # Asegúrate de que la relación esté definida en el modelo
-        alumno.grupo_id = None  # Eliminar la asignación del grupo
-        db.session.add(alumno)  # Añadir el alumno actualizado a la sesión
+    # 2️⃣ Obtener el colegio del curso
+    curso_response = supabase.table('curso').select('colegio').eq('id', curso_id).execute()
+    curso_data = curso_response.data
 
-    # Opción 2: Eliminar el grupo
-    db.session.delete(grupo)  # Eliminar el grupo de la base de datos
-    db.session.commit()  # Guardar los cambios
-
-    flash('Grupo eliminado exitosamente.', 'success')
-    return redirect(url_for('main.registro'))
-
-
-
-@main_bp.route('/', methods=['GET'])
-def registro():
-    profesores = Profesor.query.all()
-    cursos = Curso.query.all()  # Obtener la lista de cursos
-    alumnos = Alumno.query.all()  # Obtener la lista de alumnos
-    grupos = Grupo.query.all()  # Obtener la lista de grupos
-    
-    return render_template('registro.html', profesores=profesores, cursos=cursos, alumnos=alumnos, grupos=grupos)
-
-@main_bp.route('/crear_alumno', methods=['POST'])
-def crear_alumno():
-    nombre = request.form.get('nombre')
-    
-    curso_id = request.form.get('curso_id')
-    grupo_id = request.form.get('grupo_id')
-
-    if not nombre   or not curso_id:
-        flash('Todos los campos son requeridos', 'error')
+    if not curso_data:
+        flash('El curso no existe.', 'error')
         return redirect(url_for('main.registro'))
 
-    nuevo_alumno = Alumno(nombre=nombre, curso_id=curso_id, grupo_id=grupo_id)
-    db.session.add(nuevo_alumno)
-    db.session.commit()
-    flash('Alumno creado exitosamente', 'success')
+    colegio = curso_data[0]['colegio']  # Obtener el colegio del curso
+
+    # 3️⃣ Barajar la lista de alumnos
+    random.shuffle(alumnos)
+
+    # 4️⃣ Crear grupos en Supabase
+    grupos = []
+    for i in range(0, len(alumnos), tamano_grupo):
+        grupo_alumnos = alumnos[i:i + tamano_grupo]
+
+        # Crear un nuevo grupo con el colegio
+        grupo_nombre = f"Grupo {len(grupos) + 1}"
+        grupo_response = supabase.table('grupo').insert({
+            'nombre': grupo_nombre,
+            'curso_id': curso_id,
+            'colegio': colegio  # ✅ Se agrega el campo colegio
+        }).execute()
+        
+        if grupo_response.data:
+            grupo_id = grupo_response.data[0]['id']
+            grupos.append({'id': grupo_id, 'nombre': grupo_nombre})
+
+            # 5️⃣ Asignar `grupo_id` a los alumnos del grupo
+            for alumno in grupo_alumnos:
+                supabase.table('alumno').update({'grupo_id': grupo_id}).eq('id', alumno['id']).execute()
+
+    flash('Grupos creados exitosamente.', 'success')
     return redirect(url_for('main.registro'))
 
-@main_bp.route('/eliminar_alumno/<int:id>', methods=['POST'])
-def eliminar_alumno(id):
-    alumno = Alumno.query.get(id)
-    if alumno:
-        db.session.delete(alumno)
-        db.session.commit()
-        flash('Alumno eliminado exitosamente', 'success')
-    else:
-        flash('Alumno no encontrado', 'error')
-    return redirect(url_for('main.registro'))
-
+    
 @main_bp.route('/crear_curso', methods=['POST'])
 def crear_curso():
     nombre = request.form.get('nombre')
     descripcion = request.form.get('descripcion')
     profesor_id = request.form.get('profesor_id')
-    colegio = request.form.get('colegio')
+    colegio = request.form.get('colegio')  # Nuevo campo
 
-    # Validar que todos los campos estén completos
-    if not nombre or not descripcion or not profesor_id:
-        flash('Todos los campos son obligatorios.', 'error')
+    # Validar que los campos no estén vacíos
+    if not nombre or not descripcion or not profesor_id or not colegio:
+        flash('Todos los campos son requeridos', 'error')
         return redirect(url_for('main.registro'))
 
-    # Crear un nuevo curso
-    nuevo_curso = Curso(
-        nombre=nombre,
-        descripcion=descripcion,
-        profesor_id=int(profesor_id),
-        colegio=colegio# Convertir a entero
-    )
+    # Insertar el curso en Supabase
+    data = supabase.table('curso').insert({
+        "nombre": nombre,
+        "descripcion": descripcion,
+        "profesor_id": int(profesor_id),  # Asegurar que es un entero
+        "colegio": colegio
+    }).execute()
 
-    # Guardar en la base de datos
-    db.session.add(nuevo_curso)
-    db.session.commit()
+    print("Curso creado:", data)
 
-    flash('Curso creado exitosamente.', 'success')
+    flash('Curso creado exitosamente', 'success')
     return redirect(url_for('main.registro'))
 
+    
 @main_bp.route('/eliminar_curso/<int:id>', methods=['POST'])
 def eliminar_curso(id):
-    # Buscar el curso por ID
-    curso = Curso.query.get(id)
-    
-    if not curso:
-        flash('Curso no encontrado.', 'error')
-        return redirect(url_for('main.registro'))
-    
-    # Eliminar el curso de la base de datos
-    db.session.delete(curso)
-    db.session.commit()
-    
-    flash('Curso eliminado con éxito.', 'success')
+    try:
+        response = supabase.from_('curso').delete().eq('id', id).execute()
+        if response.data:
+            flash('Curso eliminado exitosamente', 'success')
+        else:
+            flash('Curso no encontrado', 'error')
+    except Exception as e:
+        flash(f"Error al eliminar curso: {str(e)}", "error")
+
     return redirect(url_for('main.registro'))
 
+    
+@main_bp.route('/eliminar_alumno/<int:id>', methods=['POST'])
+def eliminar_alumno(id):
+    try:
+        # Eliminar el alumno por ID en Supabase
+        response = supabase.table("alumno").delete().eq("id", id).execute()
+        
+        if response.data:
+            flash('Alumno eliminado exitosamente', 'success')
+        else:
+            flash('Alumno no encontrado', 'error')
+    
+    except Exception as e:
+        flash(f"Error al eliminar alumno: {str(e)}", "error")
 
+    return redirect(url_for('main.registro'))    
+    
+    
+    
 @main_bp.route('/registro_profesor', methods=['POST'])
 def profesor_registro():
     nombre = request.form.get('nombre')
     email = request.form.get('email')
     contraseña = request.form.get('contraseña')
-
+    print(nombre , email ,contraseña)
     # Validar que todos los campos estén completos
     if not nombre or not email or not contraseña:
         flash('Todos los campos son obligatorios.', 'error')
         return redirect(url_for('main.registro'))
 
-    # Validar si el correo ya existe en la base de datos
-    profesor_existente = Profesor.query.filter_by(email=email).first()
-    if profesor_existente:
-        flash('El correo ya está registrado.', 'error')
+    try:
+        # Validar si el correo ya existe en la base de datos de Supabase
+        response = supabase.from_('profesor').select('email').eq('email', email).execute()
+        data = response.data
+        print(data)
+        
+
+        
+
+        # Crear un nuevo profesor en Supabase
+        hashed_password = generate_password_hash(contraseña)
+        response = supabase.from_('profesor').insert([{'nombre': nombre, 'email': email, 'contraseña': hashed_password}]).execute()
+        data = response.data
+
+        
+
+        flash('Registro exitoso del profesor.', 'success')
         return redirect(url_for('main.registro'))
 
-    # Crear un nuevo profesor
-    nuevo_profesor = Profesor(
-        nombre=nombre,
-        email=email,
-        contraseña=generate_password_hash(contraseña)  # Encriptar la contraseña
-    )
-
-    # Guardar en la base de datos
-    db.session.add(nuevo_profesor)
-    db.session.commit()
-
-    flash('Registro exitoso del profesor.', 'success')
-    return redirect(url_for('main.registro'))
-
+    except Exception as e:
+        flash(f'Ocurrió un error inesperado: {e}', 'error')
+        return redirect(url_for('main.registro'))
+    
+    
 @main_bp.route('/eliminar_profesor/<int:id>', methods=['POST'])
 def eliminar_profesor(id):
-    # Buscar el profesor por ID
-    profesor = Profesor.query.get(id)
-    
-    if not profesor:
-        flash('Profesor no encontrado.', 'error')
+    try:
+        # Eliminar el profesor de la base de datos de Supabase por ID
+        response = supabase.from_('profesor').delete().eq('id', id).execute()
+        data = response.data
+        print(data)
+        
+          # Redirige a la página apropiada
+
+        if response.count == 0:
+            flash('Profesor no encontrado.', 'error')
+            return redirect(url_for('main.registro'))  # Redirige a la página apropiada
+
+        flash('Profesor eliminado con éxito.', 'success')
+        return redirect(url_for('main.registro'))  # Redirige a la página apropiada
+
+    except Exception as e:
+        flash(f'Ocurrió un error inesperado: {e}', 'error')
         return redirect(url_for('main.registro'))
+
+
+@main_bp.route('/crear_alumno', methods=['POST'])
+def crear_alumno():
+    nombre = request.form.get('nombre')
+    curso_id = request.form.get('curso_id')
+    grupo_id = request.form.get('grupo_id')
+
+    if not nombre or not curso_id:
+        flash('Todos los campos son requeridos', 'error')
+        return redirect(url_for('main.registro'))
+
+    # Insertar en Supabase
+    data = {
+        "nombre": nombre,
+        "curso_id": int(curso_id),  # Asegurar tipo correcto
+        "grupo_id": int(grupo_id) if grupo_id else None
+    }
     
-    # Eliminar el profesor de la base de datos
-    db.session.delete(profesor)
-    db.session.commit()
-    
-    flash('Profesor eliminado con éxito.', 'success')
+    response = supabase.table("alumno").insert(data).execute()
+
+    if response.data:
+        flash('Alumno creado exitosamente', 'success')
+    else:
+        flash('Error al crear el alumno', 'error')
+
+    return redirect(url_for('main.registro')) 
+
+@main_bp.route('/eliminar_grupo/<int:grupo_id>', methods=['POST'])
+def eliminar_grupo(grupo_id):
+    # 1️⃣ Verificar si el grupo existe en Supabase
+    grupo_response = supabase.table('grupo').select('*').eq('id', grupo_id).execute()
+
+    if not grupo_response.data:
+        flash('El grupo no existe.', 'error')
+        return redirect(url_for('main.registro'))
+
+    # 2️⃣ Eliminar la relación entre alumnos y el grupo (poner grupo_id en NULL)
+    supabase.table('alumno').update({'grupo_id': None}).eq('grupo_id', grupo_id).execute()
+
+    # 3️⃣ Eliminar el grupo de la base de datos
+    supabase.table('grupo').delete().eq('id', grupo_id).execute()
+
+    flash('Grupo eliminado exitosamente.', 'success')
     return redirect(url_for('main.registro'))
-    
-
-
 
 

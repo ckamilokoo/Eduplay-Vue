@@ -96,13 +96,13 @@
             {% for profesor in profesores %}
             <li class="list-group-item">
               <div class="list-group-item-content">
-                <strong>{{ profesor.nombre }}</strong>
-                <div class="text-muted">{{ profesor.email }}</div>
+                <strong>{{ profesor['nombre'] }}</strong>
+                <div class="text-muted">{{ profesor['email'] }}</div>
               </div>
               <div class="list-group-item-actions">
                 <form
                   method="POST"
-                  action="{{ url_for('main.eliminar_profesor', id=profesor.id) }}"
+                  action="{{ url_for('main.eliminar_profesor', id=profesor['id']) }}"
                   onsubmit="return confirm('¿Está seguro que desea eliminar este profesor?');"
                 >
                   <button type="submit" class="btn btn-danger btn-sm">
@@ -188,7 +188,9 @@
               >
                 <option value="">Selecciona un profesor</option>
                 {% for profesor in profesores %}
-                <option value="{{ profesor.id }}">{{ profesor.nombre }}</option>
+                <option value="{{ profesor['id'] }}">
+                  {{ profesor.nombre }}
+                </option>
                 {% endfor %}
               </select>
             </div>
@@ -298,11 +300,11 @@
             {% for alumno in alumnos %}
             <li class="list-group-item">
               <div class="list-group-item-content">
-                <strong>{{ alumno.nombre }}</strong>
+                <strong>{{ alumno['nombre'] }}</strong>
                 {% if alumno.email %}
-                <div class="text-muted">{{ alumno.email }}</div>
+                <div class="text-muted">{{ alumno['email'] }}</div>
                 {% endif %}
-                <div class="badge badge-primary">{{ alumno.curso.nombre }}</div>
+                <div class="badge badge-primary">no disponible</div>
               </div>
               <div class="list-group-item-actions">
                 <form
@@ -350,8 +352,8 @@
             <div class="col-md-6 col-lg-4 mb-3">
               <div class="card h-100">
                 <div class="card-body">
-                  <h5 class="card-title">{{ curso.nombre }}</h5>
-                  <p class="card-text text-muted">{{ curso.colegio }}</p>
+                  <h5 class="card-title">{{ curso['nombre'] }}</h5>
+                  <p class="card-text text-muted">{{ curso['colegio'] }}</p>
                   <form
                     action="{{ url_for('main.crear_grupos', curso_id=curso.id, tamano_grupo=4) }}"
                     method="POST"
@@ -391,20 +393,21 @@
               <tbody>
                 {% for grupo in grupos %}
                 <tr>
-                  <td>{{ grupo.id }}</td>
-                  <td>{{ grupo.nombre }}</td>
+                  <td>{{ grupo['id'] }}</td>
+                  <td>{{ grupo['nombre'] }}</td>
                   <td>
-                    {% for curso in cursos %} {% if curso.id == grupo.curso_id
-                    %} {{ curso.nombre }} {% endif %} {% endfor %}
+                    {% for curso in cursos %} {% if curso['id'] ==
+                    grupo['curso_id'] %} {{ curso['nombre'] }} {% endif %} {%
+                    endfor %}
                   </td>
-                  <td>{{ grupo.colegio }}</td>
+                  <td>{{ grupo['colegio'] }}</td>
                   <td>
                     {% if grupo.alumnos %}
                     <ul class="list-unstyled mb-0">
                       {% for alumno in grupo.alumnos %}
                       <li>
                         <i class="fas fa-user-graduate me-1 text-primary"></i>
-                        {{ alumno.nombre }}
+                        {{ alumno['nombre'] }}
                       </li>
                       {% endfor %}
                     </ul>
@@ -433,7 +436,7 @@
                   </td>
                   <td>
                     <form
-                      action="{{ url_for('main.eliminar_grupo', grupo_id=grupo.id) }}"
+                      action="{{ url_for('main.eliminar_grupo', grupo_id=grupo['id']) }}"
                       method="POST"
                       onsubmit="return confirm('¿Está seguro que desea eliminar este grupo?');"
                     >

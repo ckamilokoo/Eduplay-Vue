@@ -20,3 +20,4 @@ bleak
 flask-cors
 psycopg2-binary
 python-dotenv
+supabase

@@ -18,6 +18,7 @@ class ServerConfig:
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(ServerConfig)
@@ -27,9 +28,7 @@ def create_app():
     # Inicializa SQLAlchemy con la aplicación
     db.init_app(app)
     
-    # Crea las tablas si no existen
-    with app.app_context():
-        db.create_all()
+   
 
     # Configura CORS para permitir solicitudes desde cualquier origen
     CORS(app)
