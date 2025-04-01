@@ -94,11 +94,11 @@ const fetchCursosYGrupos = async () => {
 
   try {
     // Obtener cursos
-    const responseCursos = await axios.get('http://127.0.0.1:8080/cursos');
+    const responseCursos = await axios.get('https://paneladmin-a67gr1hs.b4a.run/cursos');
     cursos.value = responseCursos.data;
 
     // Obtener grupos
-    const responseGrupos = await axios.get('http://127.0.0.1:8080/grupos');
+    const responseGrupos = await axios.get('https://paneladmin-a67gr1hs.b4a.run/grupos');
     console.log(responseGrupos.data);
     grupos.value = responseGrupos.data;
   } catch (err) {
